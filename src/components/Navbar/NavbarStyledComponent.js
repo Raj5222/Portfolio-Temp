@@ -2,7 +2,9 @@ import { Link as LinkR } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.div`
-  background-color: ${({ theme }) => theme.black};
+  background-color: ${({ theme, scrolled }) => 
+    scrolled ? theme.card + 'CC' : theme.black};
+  backdrop-filter: ${({ scrolled }) => scrolled ? 'blur(10px)' : 'none'};
   height: 80px;
   display: flex;
   align-items: center;
@@ -10,12 +12,16 @@ export const Nav = styled.div`
   font-size: 1rem;
   position: sticky;
   top: 0;
-  // opacity: 0.88; 
-  z-index: 10;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: ${({ scrolled, theme }) => 
+    scrolled ? `1px solid ${theme.primary}20` : 'none'};
+
   @media (max-width: 960px) {
-    trastion: 0.8s all ease;
+    transition: 0.8s all ease;
   }
 `;
+
 export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -34,19 +40,27 @@ export const NavLogo = styled(LinkR)`
   justify-content: start;
   align-items: center;
   text-decoration: none;
+  
   @media (max-width: 640px) {
     padding: 0 0px;
   }
 `;
+
 export const Span = styled.div`
   padding: 0 4px;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 18px;
-  transition: all 0.2s ease-in-out;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    transform: translateY(-1px);
   }
 `;
+
 export const NavItems = styled.ul`
   width: 100%;
   display: flex;
@@ -65,23 +79,72 @@ export const NavLink = styled.a`
   color: ${({ theme }) => theme.text_primary};
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
-  :hover {
+  position: relative;
+  padding: 8px 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  &:hover {
     color: ${({ theme }) => theme.primary};
+    transform: translateY(-2px);
+    
+    &:before {
+      width: 100%;
+    }
   }
 
   &.active {
-    border-bottom: 2px solid ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.primary};
+    
+    &:before {
+      width: 100%;
+    }
+  }
+`;
+
+export const ThemeToggle = styled.button`
+  background: transparent;
+  border: 2px solid ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.primary};
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 16px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.white};
+    transform: rotate(180deg);
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 `;
 
 export const GitHubButton = styled.a`
-  border: 1.8px solid ${({ theme }) => theme.primary};
+  border: 2px solid ${({ theme }) => theme.primary};
   justify-content: center;
   display: flex;
   align-items: center;
-  height: 70%;
+  height: 40px;
   border-radius: 20px;
   color: ${({ theme }) => theme.primary};
   cursor: pointer;
@@ -89,13 +152,35 @@ export const GitHubButton = styled.a`
   font-weight: 500;
   text-decoration: none;
   font-size: 16px;
-  transition: all 0.6s ease-in-out;
-  :hover {
-    background: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.white};
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: left 0.3s ease;
+    z-index: -1;
   }
+
+  &:hover {
+    color: ${({ theme }) => theme.white};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(133, 76, 230, 0.3);
+    
+    &:before {
+      left: 0;
+    }
+  }
+
   @media screen and (max-width: 768px) {
     font-size: 14px;
+    padding: 0 16px;
   }
 `;
 
@@ -106,6 +191,7 @@ export const ButtonContainer = styled.div`
   justify-content: end;
   align-items: center;
   padding: 0 6px;
+  
   @media screen and (max-width: 900px) {
     display: none;
   }
@@ -113,15 +199,22 @@ export const ButtonContainer = styled.div`
 
 export const MobileIcon = styled.div`
   display: none;
+  color: ${({ theme }) => theme.text_primary};
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+    transform: scale(1.1);
+  }
+
   @media screen and (max-width: 900px) {
     display: block;
     position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: ${({ theme }) => theme.text_primary};
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
   }
 `;
 
@@ -134,88 +227,36 @@ export const MobileMenu = styled.div`
   top: 80px;
   right: 0;
   width: 100%;
-  padding: 12px 40px 24px 40px;
-  background: ${({ theme }) => theme.card_light};
-  transition: all 0.6s ease-in-out;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateY(0)" : "translateY(-100%)"};
+  padding: 24px 40px;
+  background: ${({ theme }) => theme.card_light}F0;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 0 0 20px 20px;
-
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-  z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
-`;
-
-export const MobileMenuItems = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  list-style: none;
-  width: 100%;
-  height: 100%;
-`;
-
-export const MobileMenuLink = styled(LinkR)`
-  color: ${({ theme }) => theme.text_primary};
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-  :hover {
-    color: ${({ theme }) => theme.primary};
-  }
-
-  &.active {
-    border-bottom: 2px solid ${({ theme }) => theme.primary};
-  }
-`;
-
-export const MobileMenuButton = styled.a`
-  border: 1.8px solid ${({ theme }) => theme.primary};
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  height: 70%;
-  border-radius: 20px;
-  color: ${({ theme }) => theme.primary};
-  cursor: pointer;
-  padding: 0 20px;
-  font-weight: 500;
-  text-decoration: none;
-  font-size: 16px;
-  transition: all 0.6s ease-in-out;
-
-  :hover {
-    background: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.white};
-  }
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid ${({ theme }) => theme.primary}30;
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+  transform: ${({ isOpen }) => 
+    isOpen ? "translateY(0)" : "translateY(-20px)"};
 `;
 
 export const MobileLink = styled.a`
   color: ${({ theme }) => theme.text_primary};
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease;
   text-decoration: none;
-  :hover {
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
     color: ${({ theme }) => theme.primary};
+    border-bottom-color: ${({ theme }) => theme.primary};
+    transform: translateX(8px);
   }
 
   &.active {
-    border-bottom: 2px solid ${({ theme }) => theme.primary};
-  }
-`;
-
-export const MobileNavLogo = styled(LinkR)`
-  width: 80%;
-  padding: 0 6px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  text-decoration: none;
-  @media (max-width: 640px) {
-    padding: 0 0px;
+    color: ${({ theme }) => theme.primary};
+    border-bottom-color: ${({ theme }) => theme.primary};
   }
 `;
