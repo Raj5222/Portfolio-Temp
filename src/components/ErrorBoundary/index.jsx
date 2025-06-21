@@ -4,40 +4,41 @@ import styled from 'styled-components';
 const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #090917;
-  color: #F2F3F4;
-  text-align: center;
+  justify-content: center;
+  min-height: 100vh;
   padding: 2rem;
+  text-align: center;
+  background: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text_primary};
 `;
 
 const ErrorTitle = styled.h1`
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #854CE6;
+  color: ${({ theme }) => theme.primary};
 `;
 
 const ErrorMessage = styled.p`
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 2rem;
   max-width: 600px;
   line-height: 1.6;
 `;
 
 const RetryButton = styled.button`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.white};
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.2s ease;
-
+  transition: all 0.3s ease;
+  
   &:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px ${({ theme }) => theme.primary}40;
   }
 `;
 
@@ -61,8 +62,7 @@ class ErrorBoundary extends React.Component {
         <ErrorContainer>
           <ErrorTitle>Oops! Something went wrong</ErrorTitle>
           <ErrorMessage>
-            We're sorry for the inconvenience. The application encountered an unexpected error.
-            Please try refreshing the page or contact support if the problem persists.
+            We're sorry, but something unexpected happened. Please try refreshing the page.
           </ErrorMessage>
           <RetryButton onClick={() => window.location.reload()}>
             Refresh Page
