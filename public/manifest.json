@@ -1,0 +1,20 @@
+{
+    "short_name": "Raj Sathvara",
+    "name": "I Am Raj. This My Portfolio.",
+    "icons": [
+        {
+            "src": "/Raj-logo.jpg",
+            "sizes": "192x192",
+            "type": "image/jpg"
+        },
+        {
+            "src": "/Raj-logo.jpg",
+            "sizes": "512x512",
+            "type": "image/jpg"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000"
+}
