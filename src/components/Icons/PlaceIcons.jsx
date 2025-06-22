@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styled from 'styled-components';
 import {
@@ -16,7 +17,6 @@ import {
   DirectionsBus,
   LocalTaxi,
   Hotel,
-  Beach,
   Park,
   Museum,
   TheaterComedy,
@@ -25,12 +25,11 @@ import {
   LocalLibrary,
   Church,
   AccountBalance,
-  LocalPost,
+  LocalPostOffice,
   LocalPharmacy,
   LocalPolice,
   FireStation,
   Apartment,
-  Villa,
   Business,
   Factory,
   Store,
@@ -48,11 +47,11 @@ import {
   IceCream,
   Stadium,
   SportsBasketball,
-  Golf,
+  GolfCourse,
   Pool,
   Spa,
-  NightClub,
-  LiveMusic
+  Nightlife,
+  MusicNote
 } from '@mui/icons-material';
 
 const Container = styled.div`
@@ -134,7 +133,7 @@ const PlaceIcons = () => {
       { icon: <School />, name: "School/Education" },
       { icon: <Business />, name: "Business Center" },
       { icon: <Apartment />, name: "Apartment" },
-      { icon: <Villa />, name: "Villa/House" }
+      { icon: <Home />, name: "Villa/House" }
     ],
     "Food & Dining": [
       { icon: <Restaurant />, name: "Restaurant" },
@@ -170,19 +169,19 @@ const PlaceIcons = () => {
     ],
     "Entertainment & Recreation": [
       { icon: <Hotel />, name: "Hotel" },
-      { icon: <Beach />, name: "Beach" },
+      { icon: <Park />, name: "Beach/Park" },
       { icon: <Park />, name: "Park" },
       { icon: <Museum />, name: "Museum" },
       { icon: <TheaterComedy />, name: "Theater" },
       { icon: <LocalMovies />, name: "Cinema" },
       { icon: <Stadium />, name: "Stadium" },
-      { icon: <NightClub />, name: "Night Club" },
-      { icon: <LiveMusic />, name: "Live Music" }
+      { icon: <Nightlife />, name: "Night Club" },
+      { icon: <MusicNote />, name: "Live Music" }
     ],
     "Sports & Fitness": [
       { icon: <FitnessCenter />, name: "Gym/Fitness" },
       { icon: <SportsBasketball />, name: "Basketball Court" },
-      { icon: <Golf />, name: "Golf Course" },
+      { icon: <GolfCourse />, name: "Golf Course" },
       { icon: <Pool />, name: "Swimming Pool" },
       { icon: <Spa />, name: "Spa" }
     ],
@@ -190,7 +189,7 @@ const PlaceIcons = () => {
       { icon: <LocalLibrary />, name: "Library" },
       { icon: <Church />, name: "Church" },
       { icon: <AccountBalance />, name: "Bank" },
-      { icon: <LocalPost />, name: "Post Office" },
+      { icon: <LocalPostOffice />, name: "Post Office" },
       { icon: <LocalAtm />, name: "ATM" },
       { icon: <LocalLaundryService />, name: "Laundry" },
       { icon: <LocalCarWash />, name: "Car Wash" },
