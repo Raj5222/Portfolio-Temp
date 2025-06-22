@@ -44,13 +44,11 @@ import {
   LocalPizza,
   LocalBar,
   LocalDining,
-  IceCream,
   Stadium,
   SportsBasketball,
   GolfCourse,
   Pool,
   Spa,
-  Nightlife,
   MusicNote
 } from '@mui/icons-material';
 
@@ -133,7 +131,7 @@ const PlaceIcons = () => {
       { icon: <School />, name: "School/Education" },
       { icon: <Business />, name: "Business Center" },
       { icon: <Apartment />, name: "Apartment" },
-      { icon: <Home />, name: "Villa/House" }
+      { icon: <Factory />, name: "Factory" }
     ],
     "Food & Dining": [
       { icon: <Restaurant />, name: "Restaurant" },
@@ -141,9 +139,7 @@ const PlaceIcons = () => {
       { icon: <Fastfood />, name: "Fast Food" },
       { icon: <LocalPizza />, name: "Pizza Place" },
       { icon: <LocalBar />, name: "Bar" },
-      { icon: <LocalDining />, name: "Fine Dining" },
-      { icon: <Storefront />, name: "Bakery" },
-      { icon: <IceCream />, name: "Ice Cream" }
+      { icon: <LocalDining />, name: "Fine Dining" }
     ],
     "Shopping": [
       { icon: <ShoppingMall />, name: "Shopping Mall" },
@@ -169,14 +165,12 @@ const PlaceIcons = () => {
     ],
     "Entertainment & Recreation": [
       { icon: <Hotel />, name: "Hotel" },
-      { icon: <Park />, name: "Beach/Park" },
       { icon: <Park />, name: "Park" },
       { icon: <Museum />, name: "Museum" },
       { icon: <TheaterComedy />, name: "Theater" },
       { icon: <LocalMovies />, name: "Cinema" },
       { icon: <Stadium />, name: "Stadium" },
-      { icon: <Nightlife />, name: "Night Club" },
-      { icon: <MusicNote />, name: "Live Music" }
+      { icon: <MusicNote />, name: "Music Venue" }
     ],
     "Sports & Fitness": [
       { icon: <FitnessCenter />, name: "Gym/Fitness" },
@@ -192,8 +186,7 @@ const PlaceIcons = () => {
       { icon: <LocalPostOffice />, name: "Post Office" },
       { icon: <LocalAtm />, name: "ATM" },
       { icon: <LocalLaundryService />, name: "Laundry" },
-      { icon: <LocalCarWash />, name: "Car Wash" },
-      { icon: <Factory />, name: "Factory/Industry" }
+      { icon: <LocalCarWash />, name: "Car Wash" }
     ]
   };
 
