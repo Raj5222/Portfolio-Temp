@@ -8,19 +8,19 @@ export const HeroContainer = styled.div`
   padding: 100px 30px;
   min-height: 100vh;
   overflow: hidden;
-  
+
   @media (max-width: 960px) {
     padding: 80px 20px;
     min-height: 90vh;
   }
-  
+
   @media (max-width: 640px) {
     padding: 60px 16px;
     min-height: 85vh;
   }
-  
+
   z-index: 1;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -79,7 +79,7 @@ export const HeroLeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
+
   @media (max-width: 960px) {
     order: 2;
     align-items: center;
@@ -93,7 +93,7 @@ export const HeroRightContainer = styled.div`
   order: 2;
   justify-content: end;
   align-items: center;
-  
+
   @media (max-width: 960px) {
     order: 1;
     justify-content: center;
@@ -116,7 +116,7 @@ export const Img = styled.img`
     inset 0 0 50px rgba(255, 255, 255, 0.1);
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   filter: brightness(1.1) contrast(1.1);
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -129,12 +129,12 @@ export const Img = styled.img`
     z-index: -1;
     animation: rotate 10s linear infinite;
   }
-  
+
   @keyframes rotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
+
   &:hover {
     transform: scale(1.05);
     box-shadow: 
@@ -159,19 +159,19 @@ export const Title = styled.div`
   line-height: 1.1;
   margin-bottom: 1rem;
   font-family: 'Poppins', sans-serif;
-  
+
   background: linear-gradient(135deg, #ffffff 0%, #ff6b6b 50%, #4ecdc4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
   animation: gradientShift 4s ease-in-out infinite;
-  
+
   @keyframes gradientShift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
-  
+
   @media (max-width: 960px) {
     text-align: center;
   }
@@ -186,12 +186,12 @@ export const TextLoop = styled.div`
   line-height: 1.3;
   margin-bottom: 2rem;
   font-family: 'Poppins', sans-serif;
-  
+
   @media (max-width: 960px) {
     text-align: center;
     justify-content: center;
   }
-  
+
   @media (max-width: 640px) {
     flex-direction: column;
     gap: 10px;
@@ -208,7 +208,7 @@ export const Span = styled.span`
   background-size: 200% 200%;
   animation: gradientShift 3s ease-in-out infinite;
   position: relative;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -220,7 +220,7 @@ export const Span = styled.span`
     border-radius: 2px;
     animation: pulse 2s ease-in-out infinite;
   }
-  
+
   @keyframes pulse {
     0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
@@ -278,7 +278,7 @@ export const ResumeButton = styled.a`
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 25px 50px rgba(255, 107, 107, 0.6);
-    
+
     &::before {
       left: 0;
     }
@@ -301,56 +301,41 @@ export const ResumeButton = styled.a`
 export const SocialLinks = styled.div`
   display: flex;
   gap: 20px;
-  margin-top: 1rem;
-  
-  @media (max-width: 960px) {
+  margin-top: 30px;
+  align-items: center;
+
+  @media (max-width: 768px) {
     justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
   }
 `;
 
 export const SocialLink = styled.a`
-  color: ${({ theme }) => theme.text_primary};
-  font-size: 1.8rem;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 24px;
+  transition: all 0.3s ease-in-out;
   padding: 12px;
   border-radius: 50%;
-  background: ${({ theme }) => theme.card};
-  backdrop-filter: blur(20px);
+  background: ${({ theme }) => theme.card_light};
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 55px;
-  height: 55px;
-  border: 1px solid ${({ theme }) => theme.border};
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
-  
+  width: 48px;
+  height: 48px;
+  text-decoration: none;
+
   &:hover {
-    color: ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary + "20"};
     transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
-    
-    &::before {
-      opacity: 1;
-    }
+    box-shadow: 0 8px 25px rgba(133, 76, 230, 0.3);
   }
-  
-  @media (max-width: 640px) {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
   }
 `;

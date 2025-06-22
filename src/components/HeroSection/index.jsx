@@ -95,11 +95,8 @@ const HeroSection = () => {
                       href={Bio.github} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      as={motion.a}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
                     >
-                      <FaGithub />
+                      <FaGithub size={24} />
                     </SocialLink>
                   )}
                   {Bio.linkedin && (
@@ -107,11 +104,8 @@ const HeroSection = () => {
                       href={Bio.linkedin} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      as={motion.a}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
                     >
-                      <FaLinkedin />
+                      <FaLinkedin size={24} />
                     </SocialLink>
                   )}
                   {Bio.twitter && (
@@ -119,11 +113,8 @@ const HeroSection = () => {
                       href={Bio.twitter} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      as={motion.a}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
                     >
-                      <FaTwitter />
+                      <FaTwitter size={24} />
                     </SocialLink>
                   )}
                   {Bio.insta && (
@@ -131,20 +122,12 @@ const HeroSection = () => {
                       href={Bio.insta} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      as={motion.a}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
                     >
-                      <FaInstagram />
+                      <FaInstagram size={24} />
                     </SocialLink>
                   )}
-                  <SocialLink 
-                    href="#connect" 
-                    as={motion.a}
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <FaEnvelope />
+                  <SocialLink href="#connect">
+                    <FaEnvelope size={24} />
                   </SocialLink>
                 </SocialLinks>
               </motion.div>

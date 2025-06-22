@@ -16,9 +16,9 @@ const Container = styled.div`
     position: relative;
     z-index: 1;
     align-items: center;
-    padding: 40px 0px 80px 0px;
+    padding: 40px 20px;
     @media (max-width: 960px) {
-        padding: 0px;
+        padding: 20px 16px;
     }
 `;
 
@@ -29,11 +29,11 @@ const Wrapper = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
-    max-width: 1350px;
-    padding: 80px 0;
-    gap: 12px;
+    max-width: 1000px;
+    gap: 20px;
     @media (max-width: 960px) {
         flex-direction: column;
+        gap: 16px;
     }
 `;
 
