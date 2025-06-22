@@ -8,7 +8,6 @@ import {
   School,
   LocalCafe,
   Restaurant,
-  ShoppingMall,
   LocalHospital,
   LocalGasStation,
   LocalParking,
@@ -142,7 +141,7 @@ const PlaceIcons = () => {
       { icon: <LocalDining />, name: "Fine Dining" }
     ],
     "Shopping": [
-      { icon: <ShoppingMall />, name: "Shopping Mall" },
+      { icon: <LocalMall />, name: "Shopping Mall" },
       { icon: <Store />, name: "Store" },
       { icon: <LocalMall />, name: "Mall" },
       { icon: <Storefront />, name: "Shop Front" },
