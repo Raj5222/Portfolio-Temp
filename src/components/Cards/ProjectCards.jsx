@@ -1,251 +1,255 @@
 
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
-const Card = styled.div`
-    width: 330px;
-    height: 520px;
-    background: ${({ theme }) => theme.card};
-    cursor: pointer;
-    border-radius: ${({ $isEven }) => $isEven ? '25px 10px 25px 10px' : '10px 25px 10px 25px'};
-    box-shadow: ${({ theme }) => theme.shadow};
-    overflow: hidden;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 1px solid ${({ theme }) => theme.border};
-    backdrop-filter: blur(10px);
-    position: relative;
-    
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-        border-radius: 25px 25px 0 0;
-    }
-    
-    &:hover {
-        transform: translateY(-12px) scale(1.03);
-        box-shadow: ${({ theme }) => theme.glow};
-        border-color: ${({ theme }) => theme.primary};
-        background: ${({ theme }) => theme.card_hover};
-    }
+const Card = styled(motion.div)`
+  width: 100%;
+  max-width: 400px;
+  background: ${({ theme }) => theme.card};
+  backdrop-filter: blur(20px);
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 20px;
+  box-shadow: ${({ theme }) => theme.shadow};
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
 
-    @media (max-width: 768px) {
-        max-width: 400px;
-        height: 480px;
-        padding: 20px;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: ${({ theme }) => theme.gradient_primary};
+    border-radius: 20px 20px 0 0;
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: ${({ theme }) => theme.glow};
+    border-color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.card_hover};
+  }
 `;
 
-const Image = styled.img`
-    width: 100%;
-    height: 180px;
-    background-color: ${({ theme }) => theme.white};
-    border-radius: 12px;
-    object-fit: cover;
-    border: 1px solid ${({ theme }) => theme.border};
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
 `;
 
-const Tags = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
+const ProjectImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+
+  ${Card}:hover & {
+    transform: scale(1.1);
+  }
 `;
 
-const Tag = styled.span`
-    font-size: 12px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.card_hover};
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid ${({ theme }) => theme.primary}30;
+const ContentSection = styled.div`
+  padding: 24px;
+`;
+
+const CategoryTag = styled.span`
+  display: inline-block;
+  padding: 6px 12px;
+  background: ${({ theme }) => theme.primary}20;
+  color: ${({ theme }) => theme.primary};
+  border: 1px solid ${({ theme }) => theme.primary}40;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+`;
+
+const Title = styled.h3`
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text_primary};
+  margin-bottom: 12px;
+  line-height: 1.4;
+`;
+
+const Description = styled.p`
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 const TechStack = styled.div`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 12px 0;
-    padding: 12px;
-    background: ${({ theme }) => theme.card_light};
-    border-radius: 12px;
-    border: 1px solid ${({ theme }) => theme.border};
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
 `;
 
-const TechIcon = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 20px;
-    background: ${({ theme }) => theme.card};
-    border: 2px solid ${({ theme }) => theme.border};
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    font-size: 12px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.text_primary};
+const TechTag = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: ${({ theme }) => theme.glass};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text_primary};
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary}20;
+  }
+`;
+
+const TechIcon = styled.img`
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+const ActionButton = styled.a`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &.primary {
+    background: ${({ theme }) => theme.gradient_primary};
+    color: white;
     
     &:hover {
-        transform: translateY(-3px) scale(1.05);
-        border-color: ${({ theme }) => theme.primary};
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        background: ${({ theme }) => theme.primary}10;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
     }
-
-    img {
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
-    }
-    
-    span {
-        white-space: nowrap;
-    }
-    
-    @media (max-width: 768px) {
-        padding: 6px 10px;
-        font-size: 11px;
-        
-        img {
-            width: 16px;
-            height: 16px;
-        }
-    }
-`;
-
-const Details = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    padding: 0px 2px;
-`;
-
-const Title = styled.div`
-    font-size: 20px;
-    font-weight: 600;
+  }
+  
+  &.secondary {
+    background: transparent;
     color: ${({ theme }) => theme.text_primary};
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-`;
-
-const Date = styled.div`
-    font-size: 12px;
-    margin-left: 2px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_secondary};
-    @media (max-width: 768px) {
-        font-size: 10px;
+    border: 1px solid ${({ theme }) => theme.border};
+    
+    &:hover {
+      border-color: ${({ theme }) => theme.primary};
+      background: ${({ theme }) => theme.primary}10;
     }
+  }
 `;
 
-const Description = styled.div`
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_secondary};
-    overflow: hidden;
-    margin-top: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    font-size: 14px;
-`;
-
-const Members = styled.div`
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-`;
-
-const Avatar = styled.img`
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    margin-left: -10px;
-    background-color: ${({ theme }) => theme.white};
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    border: 2px solid ${({ theme }) => theme.card};
-`;
-
-// Technology icon mapping
+// Tech icon mapping
 const getTechIcon = (tech) => {
-    const techName = tech.toLowerCase();
-    
-    const iconMap = {
-        'python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-        'javascript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-        'react': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-        'nodejs': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-        'node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-        'mongodb': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
-        'express': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
-        'html': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
-        'css': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
-        'java': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-        'mysql': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
-        'postgresql': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
-        'firebase': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
-        'flutter': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',
-        'android': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg',
-        'tensorflow': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
-        'docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
-        'git': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-        'aws': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
-        'django': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
-        'flask': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg',
-        'typescript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-        'nextjs': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
-        'vue': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
-        'angular': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
-        'php': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg'
-    };
-    
-    return iconMap[techName] || 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-original.svg';
+  const techIcons = {
+    'JavaScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+    'React': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+    'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+    'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+    'MongoDB': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+    'Express': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
+    'MySQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+    'PostgreSQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+    'Docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+    'AWS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
+    'Git': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+    'TypeScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    'Vue.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
+    'Angular': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
+    'HTML': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+    'CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+    'PHP': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg',
+    'Laravel': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg',
+    'Django': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
+    'Flask': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg',
+    'Redis': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg',
+    'Nginx': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg',
+    'Linux': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',
+    'Ubuntu': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg',
+    'Next.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
+    'TensorFlow': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+    'Keras': 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg',
+    'Scikit-learn': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg',
+  };
+  
+  return techIcons[tech] || `https://via.placeholder.com/14x14/00d4ff/ffffff?text=${tech.charAt(0)}`;
 };
 
-const ProjectCards = ({project, setOpenModal, index}) => {
-    return (
-        <Card $isEven={index % 2 === 0} onClick={() => setOpenModal({state: true, project: project})}>
-            <Image src={project.images[0]}/>
-            <TechStack>
-                {project.tags?.slice(0, 6).map((tech, techIndex) => (
-                    <TechIcon key={techIndex} title={tech}>
-                        <img src={getTechIcon(tech)} alt={tech} />
-                        <span>{tech}</span>
-                    </TechIcon>
-                ))}
-            </TechStack>
-            
-            <Details>
-                <Title>{project.title}</Title>
-                <Date>{project.date}</Date>
-                <Description>{project.description}</Description>
-            </Details>
-            <Members>
-                {project.member?.map((member, memberIndex) => (
-                    <Avatar key={memberIndex} src={member.img}/>
-                ))}
-            </Members>
-        </Card>
-    )
-}
+const ProjectCard = ({ project, setOpenModal, index }) => {
+  return (
+    <Card
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      whileHover={{ scale: 1.02 }}
+      onClick={() => setOpenModal({ state: true, project })}
+    >
+      <ImageContainer>
+        <ProjectImage src={project.image} alt={project.title} />
+      </ImageContainer>
+      
+      <ContentSection>
+        <CategoryTag>{project.category}</CategoryTag>
+        <Title>{project.title}</Title>
+        <Description>{project.description}</Description>
+        
+        <TechStack>
+          {project.tags?.slice(0, 4).map((tag, tagIndex) => (
+            <TechTag key={tagIndex}>
+              <TechIcon src={getTechIcon(tag)} alt={tag} />
+              {tag}
+            </TechTag>
+          ))}
+          {project.tags?.length > 4 && (
+            <TechTag>+{project.tags.length - 4} more</TechTag>
+          )}
+        </TechStack>
+        
+        <ButtonGroup>
+          <ActionButton 
+            href={project.github} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="secondary"
+          >
+            🔗 Code
+          </ActionButton>
+          <ActionButton 
+            href={project.webapp} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="primary"
+          >
+            🚀 Live Demo
+          </ActionButton>
+        </ButtonGroup>
+      </ContentSection>
+    </Card>
+  );
+};
 
-export default ProjectCards
+export default ProjectCard;

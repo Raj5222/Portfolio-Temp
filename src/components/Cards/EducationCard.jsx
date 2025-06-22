@@ -1,166 +1,156 @@
-import React from 'react'
-import styled from 'styled-components'
 
-const Document = styled.img`
-    display: none;
-    height: 70px;
-    width: fit-content;
-    background-color: #000;
-    border-radius: 10px;
-    &:hover{
-        cursor: pointer;
-        opacity: 0.8;
-    }
-`
+import React from 'react';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
-const Description = styled.div`
-    width: 100%;
-    font-size: 15px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_primary + 99};
-    margin-bottom: 10px;
-    @media only screen and (max-width: 768px){
-        font-size: 12px;
-    }
-`
+const Card = styled(motion.div)`
+  background: ${({ theme }) => theme.card};
+  backdrop-filter: blur(20px);
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: ${({ theme }) => theme.shadow};
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
 
-const Span = styled.span`
-overflow: hidden;
-display: -webkit-box;
-max-width: 100%;
--webkit-line-clamp: 4;
--webkit-box-orient: vertical;
-text-overflow: ellipsis;
-`
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: ${({ theme }) => theme.gradient_accent};
+    border-radius: 20px 20px 0 0;
+  }
 
-const Card = styled.div`
-    width: 100%;
-    max-width: 650px;
-    background: ${({ theme }) => theme.card};
-    border-radius: ${({ $isEven }) => $isEven ? '25px 10px 25px 10px' : '10px 25px 10px 25px'};
-    box-shadow: ${({ theme }) => theme.shadow};
-    border: 1px solid ${({ theme }) => theme.border};
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: ${({ theme }) => theme.glow};
+    border-color: ${({ theme }) => theme.accent};
+    background: ${({ theme }) => theme.card_hover};
+  }
+
+  @media (max-width: 768px) {
     padding: 24px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
     flex-direction: column;
     gap: 16px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    backdrop-filter: blur(10px);
-    
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        border-radius: 25px 25px 0 0;
-    }
-    
-    &:hover{
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: ${({ theme }) => theme.glow};
-        border-color: ${({ theme }) => theme.primary};
-        background: ${({ theme }) => theme.card_hover};
-    }
-    
-    @media only screen and (max-width: 768px){
-        padding: 20px;
-        gap: 12px;
-        max-width: 90vw;
-    }
+    text-align: center;
+  }
+`;
 
-    &:hover ${Document}{
-        display: flex;
-    }
+const InstituteLogo = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid ${({ theme }) => theme.border};
+  flex-shrink: 0;
 
-    &:hover ${Span}{
-        overflow: visible;
-        -webkit-line-clamp: unset;
-    }
-`
+  @media (max-width: 768px) {
+    align-self: center;
+  }
+`;
 
-const Top = styled.div`
-    width: 100%;
-    display: flex;
-    gap: 12px
-`
+const ContentSection = styled.div`
+  flex: 1;
+`;
 
-const Image = styled.img`
-    height: 50px;
-    background-color: #000;
-    border-radius: 10px;
-    margin-top: 4px;
-    @media only screen and (max-width: 768px){
-        height: 40px;
-    }
-`
+const Degree = styled.h3`
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text_primary};
+  margin-bottom: 8px;
+  line-height: 1.3;
+`;
 
-const Body = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column; 
-`
+const School = styled.h4`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.accent};
+  margin-bottom: 8px;
+`;
 
+const Duration = styled.p`
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.text_secondary};
+  font-weight: 500;
+`;
 
-const Name = styled.div`
-    font-size: 18px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.text_primary + 99};
-    @media only screen and (max-width: 768px){
-        font-size: 14px;
-    }
-`
+const Description = styled.p`
+  color: ${({ theme }) => theme.text_secondary};
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 20px;
+`;
 
-const Degree = styled.div`
-    font-size: 14px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.text_secondary + 99};
-    @media only screen and (max-width: 768px){
-        font-size: 12px;
-    }
-`
+const GradeSection = styled.div`
+  margin-top: 16px;
+  padding: 16px;
+  background: ${({ theme }) => theme.glass};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
 
-const Date = styled.div`
-    font-size: 12px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_secondary + 80};
-    @media only screen and (max-width: 768px){
-        font-size: 10px;
-    }
-`
+const GradeLabel = styled.span`
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.text_secondary};
+  font-weight: 500;
+`;
 
-const Grade = styled.div`
-    font-size: 14px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.text_secondary + 99};
-    @media only screen and (max-width: 768px){
-        font-size: 12px;
-    }
-`
-
-
+const GradeValue = styled.span`
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.accent};
+  background: ${({ theme }) => theme.gradient_accent};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+`;
 
 const EducationCard = ({ education, index }) => {
-    return (
-        <Card $isEven={index % 2 === 0}>
-            <Top>
-                <Image src={education.img} />
-                <Body>
-                    <Name>{education.school}</Name>
-                    <Degree>{education.degree}</Degree>
-                    <Date>{education.date}</Date>
-                </Body>
-            </Top>
-            <Grade><b>Grade: </b>{education.grade}</Grade>
-            <Description>
-                <Span>{education.desc}</Span>
-            </Description>
-        </Card>
-    )
-}
+  return (
+    <Card
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      whileHover={{ scale: 1.02 }}
+    >
+      <Header>
+        <InstituteLogo src={education.img} alt={education.school} />
+        <ContentSection>
+          <Degree>{education.degree}</Degree>
+          <School>{education.school}</School>
+          <Duration>{education.date}</Duration>
+        </ContentSection>
+      </Header>
 
-export default EducationCard
+      {education.desc && (
+        <Description>{education.desc}</Description>
+      )}
+
+      {education.grade && (
+        <GradeSection>
+          <GradeLabel>Grade:</GradeLabel>
+          <GradeValue>{education.grade}</GradeValue>
+        </GradeSection>
+      )}
+    </Card>
+  );
+};
+
+export default EducationCard;
