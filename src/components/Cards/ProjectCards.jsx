@@ -88,26 +88,43 @@ const TechIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 20px;
     background: ${({ theme }) => theme.card};
     border: 2px solid ${({ theme }) => theme.border};
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.text_primary};
     
     &:hover {
-        transform: translateY(-3px) scale(1.15);
+        transform: translateY(-3px) scale(1.05);
         border-color: ${({ theme }) => theme.primary};
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         background: ${({ theme }) => theme.primary}10;
     }
 
     img {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         object-fit: contain;
         filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+    }
+    
+    span {
+        white-space: nowrap;
+    }
+    
+    @media (max-width: 768px) {
+        padding: 6px 10px;
+        font-size: 11px;
+        
+        img {
+            width: 16px;
+            height: 16px;
+        }
     }
 `;
 
@@ -208,16 +225,11 @@ const ProjectCards = ({project, setOpenModal, index}) => {
     return (
         <Card $isEven={index % 2 === 0} onClick={() => setOpenModal({state: true, project: project})}>
             <Image src={project.images[0]}/>
-            <Tags>
-                {project.tags?.map((tag, tagIndex) => (
-                    <Tag key={tagIndex}>{tag}</Tag>
-                ))}
-            </Tags>
-            
             <TechStack>
                 {project.tags?.slice(0, 6).map((tech, techIndex) => (
                     <TechIcon key={techIndex} title={tech}>
                         <img src={getTechIcon(tech)} alt={tech} />
+                        <span>{tech}</span>
                     </TechIcon>
                 ))}
             </TechStack>

@@ -123,13 +123,29 @@ const Education = () => {
                     <Timeline>
                         {educations.map((education,index) => (
                             <TimelineItem key={index}>
-                                <TimelineContent sx={{ py: '12px', px: 2 }}>
-                                    <EducationCard education={education} index={index}/>
-                                </TimelineContent>
-                                <TimelineSeparator>
-                                    <TimelineDot variant="outlined" color="secondary" />
-                                    {index !== educations.length - 1 &&<TimelineConnector style={{ background: '#854CE6' }} />}
-                                </TimelineSeparator>
+                                {index % 2 === 0 ? (
+                                    <>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                            <EducationCard education={education} index={index}/>
+                                        </TimelineContent>
+                                        <TimelineSeparator>
+                                            <TimelineDot variant="outlined" color="secondary" />
+                                            {index !== educations.length - 1 &&<TimelineConnector style={{ background: '#854CE6' }} />}
+                                        </TimelineSeparator>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }} />
+                                        <TimelineSeparator>
+                                            <TimelineDot variant="outlined" color="secondary" />
+                                            {index !== educations.length - 1 &&<TimelineConnector style={{ background: '#854CE6' }} />}
+                                        </TimelineSeparator>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                            <EducationCard education={education} index={index}/>
+                                        </TimelineContent>
+                                    </>
+                                )}
                             </TimelineItem>
                         ))}
                     </Timeline>

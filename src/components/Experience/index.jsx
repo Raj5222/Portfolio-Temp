@@ -120,13 +120,29 @@ const Index = () => {
                     <Timeline>
                         {experiences.map((experience,index) => (
                             <TimelineItem key={index}>
-                                <TimelineContent sx={{ py: '12px', px: 2 }}>
-                                    <ExperienceCard experience={experience} index={index}/>
-                                </TimelineContent>
-                                <TimelineSeparator>
-                                    <TimelineDot variant="outlined" color="secondary" />
-                                    {index !== experiences.length - 1 && <TimelineConnector style={{ background: '#306EE8' }} />}
-                                </TimelineSeparator>
+                                {index % 2 === 0 ? (
+                                    <>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                            <ExperienceCard experience={experience} index={index}/>
+                                        </TimelineContent>
+                                        <TimelineSeparator>
+                                            <TimelineDot variant="outlined" color="secondary" />
+                                            {index !== experiences.length - 1 && <TimelineConnector style={{ background: '#306EE8' }} />}
+                                        </TimelineSeparator>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }} />
+                                        <TimelineSeparator>
+                                            <TimelineDot variant="outlined" color="secondary" />
+                                            {index !== experiences.length - 1 && <TimelineConnector style={{ background: '#306EE8' }} />}
+                                        </TimelineSeparator>
+                                        <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                            <ExperienceCard experience={experience} index={index}/>
+                                        </TimelineContent>
+                                    </>
+                                )}
                             </TimelineItem>
                         ))}
                     </Timeline>

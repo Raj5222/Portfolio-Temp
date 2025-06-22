@@ -1,6 +1,42 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// Technology icon mapping
+const getTechIcon = (tech) => {
+    const techName = tech.toLowerCase();
+    
+    const iconMap = {
+        'python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+        'javascript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+        'react': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+        'nodejs': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+        'node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+        'mongodb': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+        'express': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
+        'html': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+        'css': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+        'java': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
+        'mysql': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+        'postgresql': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+        'firebase': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
+        'flutter': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',
+        'android': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg',
+        'tensorflow': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+        'docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+        'git': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+        'aws': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
+        'django': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
+        'flask': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg',
+        'typescript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+        'nextjs': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
+        'vue': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
+        'angular': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
+        'php': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg'
+    };
+    
+    return iconMap[techName] || 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-original.svg';
+};
+
 const Document = styled.img`
     display: none;
     height: 70px;
@@ -137,22 +173,56 @@ const Date = styled.div`
 const Skills = styled.div`
     width: 100%;
     display: flex;
+    flex-direction: column;
     gap: 12px;
-    margin-top: -10px;
+    margin-top: 8px;
+`
+
+const SkillsHeader = styled.div`
+    font-weight: 600;
+    color: ${({ theme }) => theme.text_primary};
+    font-size: 16px;
 `
 
 const ItemWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
 `
 
 const Skill = styled.div`
-    font-size: 15px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_primary + 99};
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.text_primary};
+    background: ${({ theme }) => theme.card_light};
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid ${({ theme }) => theme.border};
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        border-color: ${({ theme }) => theme.primary};
+        background: ${({ theme }) => theme.primary}10;
+    }
+    
     @media only screen and (max-width: 768px){
-        font-size: 12px;
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+`
+
+const SkillIcon = styled.img`
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    
+    @media only screen and (max-width: 768px){
+        width: 14px;
+        height: 14px;
     }
 `
 
@@ -175,17 +245,17 @@ const ExperienceCard = ({ experience, index }) => {
 
                 }
                 {experience?.skills &&
-                    <>
-                        <br />
-                        <Skills>
-                            <b>Skills:</b>
-                            <ItemWrapper>
-                                {experience?.skills?.map((skill, skillIndex) => (
-                                    <Skill key={skillIndex}>• {skill}</Skill>
-                                ))}
-                            </ItemWrapper>
-                        </Skills>
-                    </>
+                    <Skills>
+                        <SkillsHeader>Skills & Technologies:</SkillsHeader>
+                        <ItemWrapper>
+                            {experience?.skills?.map((skill, skillIndex) => (
+                                <Skill key={skillIndex}>
+                                    <SkillIcon src={getTechIcon(skill)} alt={skill} />
+                                    {skill}
+                                </Skill>
+                            ))}
+                        </ItemWrapper>
+                    </Skills>
                 }
             </Description>
             {experience.doc &&
