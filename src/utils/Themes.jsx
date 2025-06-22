@@ -110,6 +110,19 @@ export const scaleIn = theme.scaleIn;
 export const slideInLeft = theme.slideInLeft;
 export const slideInRight = theme.slideInRight;
 
+// Add fadeInLeft animation variant
+export const fadeInLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
 // Helper for theme validation
 export const Pass = "authenticated_user";
 export const Connect_URL = "https://portfolio-api-livid-one.vercel.app/portfolio";
