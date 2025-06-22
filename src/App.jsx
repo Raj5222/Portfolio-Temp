@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { useState, useEffect, Suspense, lazy } from "react";
-import { darkTheme, lightTheme } from './utils/Themes.js'
+import { darkTheme, lightTheme } from './utils/Themes'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from "styled-components";
@@ -9,7 +9,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 
 // Lazy load components for better performance
 const Navbar = lazy(() => import("./components/Navbar"));
-const HeroSection = lazy(() => import("./components/HeroSection"));
+const HeroSection = lazy(() => import("./components/HeroSection/index"));
 const Skills = lazy(() => import("./components/Skills"));
 const Projects = lazy(() => import("./components/Projects"));
 const Contact = lazy(() => import("./components/Contact"));
@@ -157,42 +157,6 @@ const ComponentLoader = styled.div`
   font-size: 1.2rem;
   font-weight: 500;
 `
-
-const ThemeToggle = styled(motion.button)`
-  position: fixed;
-  top: 50%;
-  right: 30px;
-  transform: translateY(-50%);
-  z-index: 1000;
-  background: ${({ theme }) => theme.card};
-  backdrop-filter: blur(20px);
-  color: ${({ theme }) => theme.text_primary};
-  border: 2px solid ${({ theme }) => theme.border};
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: ${({ theme }) => theme.shadow};
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
-  &:hover {
-    background: ${({ theme }) => theme.card_hover};
-    box-shadow: ${({ theme }) => theme.glow};
-    transform: translateY(-50%) scale(1.1);
-  }
-  
-  @media (max-width: 768px) {
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
-  }
-`
-
 const FloatingElements = styled.div`
   position: fixed;
   top: 0;
@@ -333,15 +297,7 @@ function App() {
                 </Suspense>
               </motion.div>
             </AnimatePresence>
-            
-            <ThemeToggle
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.1, rotate: 180 }}
-              whileTap={{ scale: 0.9 }}
-              title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
-            >
-              {darkMode ? '☀️' : '🌙'}
-            </ThemeToggle>
+          
           </Body>
         </Router>
       </ThemeProvider>
