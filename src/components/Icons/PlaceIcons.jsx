@@ -28,7 +28,7 @@ import {
   LocalPostOffice,
   LocalPharmacy,
   LocalPolice,
-  FireStation,
+  LocalFireDepartment,
   Apartment,
   Business,
   Factory,
@@ -165,7 +165,7 @@ const PlaceIcons = () => {
       { icon: <LocalHospital />, name: "Hospital" },
       { icon: <LocalPharmacy />, name: "Pharmacy" },
       { icon: <LocalPolice />, name: "Police Station" },
-      { icon: <FireStation />, name: "Fire Station" }
+      { icon: <LocalFireDepartment />, name: "Fire Station" }
     ],
     "Entertainment & Recreation": [
       { icon: <Hotel />, name: "Hotel" },
