@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styled from 'styled-components';
 import {
@@ -46,7 +45,6 @@ import {
   LocalPizza,
   LocalBar,
   LocalDining,
-  Bakery,
   IceCream,
   Stadium,
   SportsBasketball,
@@ -91,7 +89,7 @@ const IconCard = styled.div`
   border: 1px solid ${({ theme }) => theme.primary + '20'};
   transition: all 0.3s ease;
   cursor: pointer;
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px ${({ theme }) => theme.primary + '30'};
@@ -104,7 +102,7 @@ const IconWrapper = styled.div`
   margin-bottom: 10px;
   font-size: 2.5rem;
   transition: all 0.3s ease;
-  
+
   ${IconCard}:hover & {
     transform: scale(1.1);
     color: #9c27b0;
@@ -145,7 +143,7 @@ const PlaceIcons = () => {
       { icon: <LocalPizza />, name: "Pizza Place" },
       { icon: <LocalBar />, name: "Bar" },
       { icon: <LocalDining />, name: "Fine Dining" },
-      { icon: <Bakery />, name: "Bakery" },
+      { icon: <Storefront />, name: "Bakery" },
       { icon: <IceCream />, name: "Ice Cream" }
     ],
     "Shopping": [
