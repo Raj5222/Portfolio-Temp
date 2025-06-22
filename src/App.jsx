@@ -17,7 +17,7 @@ const Footer = lazy(() => import("./components/Footer"));
 const Experience = lazy(() => import("./components/Experience"));
 const Education = lazy(() => import("./components/Education"));
 const ProjectDetails = lazy(() => import("./components/ProjectDetails"));
-const PlaceIcons = lazy(() => import("./components/Icons/PlaceIcons"));
+
 
 const Body = styled.div`
   background: ${({ theme }) => theme.bg};
@@ -25,7 +25,7 @@ const Body = styled.div`
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
-  
+
   &::before {
     content: '';
     position: fixed;
@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   width: 100%;
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -73,7 +73,7 @@ const LoadingContainer = styled.div`
   gap: 3rem;
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -84,7 +84,7 @@ const LoadingContainer = styled.div`
     background: radial-gradient(circle at 50% 50%, rgba(153, 69, 255, 0.15) 0%, transparent 70%);
     animation: pulse 3s ease-in-out infinite;
   }
-  
+
   @keyframes pulse {
     0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
@@ -100,7 +100,7 @@ const LoadingText = styled.div`
   line-height: 1.2;
   text-align: center;
   font-family: 'Poppins', sans-serif;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 10px;
@@ -115,7 +115,7 @@ const LoadingSpan = styled.div`
   cursor: pointer;
   background-size: 200% 200%;
   animation: gradientShift 3s ease-in-out infinite;
-  
+
   @keyframes gradientShift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -130,7 +130,7 @@ const LoadingSpinner = styled(motion.div)`
   border-right: 4px solid #4ecdc4;
   border-radius: 50%;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -143,7 +143,7 @@ const LoadingSpinner = styled(motion.div)`
     border-radius: 50%;
     animation: spin 1.5s linear infinite reverse;
   }
-  
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -290,7 +290,7 @@ function App() {
                   <Projects openModal={openModal} setOpenModal={setOpenModal} />
                   <Wrapper>
                     <Education />
-                    <PlaceIcons />
+                    
                     <Contact />
                   </Wrapper>
                   <Footer />
@@ -300,7 +300,7 @@ function App() {
                 </Suspense>
               </motion.div>
             </AnimatePresence>
-          
+
           </Body>
         </Router>
       </ThemeProvider>
