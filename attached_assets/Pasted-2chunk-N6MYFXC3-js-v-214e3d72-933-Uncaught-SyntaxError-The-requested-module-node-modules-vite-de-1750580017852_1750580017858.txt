@@ -1,0 +1,55 @@
+2chunk-N6MYFXC3.js?v=214e3d72:933 Uncaught SyntaxError: The requested module '/node_modules/.vite/deps/@mui_icons-material.js?v=214e3d72' does not provide an export named 'Bakery' (at PlaceIcons.jsx:49:3)Understand this error
+hook.js:608 The above error occurred in one of your React components:
+
+    at Lazy
+    at div
+    at O2 (http://localhost:5173/node_modules/.vite/deps/styled-components.js?v=214e3d72:1276:6)
+    at Suspense
+    at div
+    at MotionComponent (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=214e3d72:940:40)
+    at PresenceChild (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=214e3d72:116:24)
+    at AnimatePresence (http://localhost:5173/node_modules/.vite/deps/framer-motion.js?v=214e3d72:205:26)
+    at div
+    at O2 (http://localhost:5173/node_modules/.vite/deps/styled-components.js?v=214e3d72:1276:6)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=214e3d72:4375:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=214e3d72:5120:5)
+    at ot (http://localhost:5173/node_modules/.vite/deps/styled-components.js?v=214e3d72:1222:32)
+    at ErrorBoundary (http://localhost:5173/src/components/ErrorBoundary/index.jsx:109:5)
+    at App (http://localhost:5173/src/App.jsx:210:35)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+overrideMethod @ hook.js:608
+logCapturedError @ chunk-HRZTCQ74.js?v=214e3d72:14078
+callback @ chunk-HRZTCQ74.js?v=214e3d72:14124
+callCallback @ chunk-HRZTCQ74.js?v=214e3d72:11294
+commitUpdateQueue @ chunk-HRZTCQ74.js?v=214e3d72:11311
+commitLayoutEffectOnFiber @ chunk-HRZTCQ74.js?v=214e3d72:17121
+commitLayoutMountEffects_complete @ chunk-HRZTCQ74.js?v=214e3d72:18028
+commitLayoutEffects_begin @ chunk-HRZTCQ74.js?v=214e3d72:18017
+commitLayoutEffects @ chunk-HRZTCQ74.js?v=214e3d72:17968
+commitRootImpl @ chunk-HRZTCQ74.js?v=214e3d72:19404
+commitRoot @ chunk-HRZTCQ74.js?v=214e3d72:19328
+finishConcurrentRender @ chunk-HRZTCQ74.js?v=214e3d72:18811
+performConcurrentWorkOnRoot @ chunk-HRZTCQ74.js?v=214e3d72:18766
+workLoop @ chunk-HRZTCQ74.js?v=214e3d72:195
+flushWork @ chunk-HRZTCQ74.js?v=214e3d72:174
+performWorkUntilDeadline @ chunk-HRZTCQ74.js?v=214e3d72:382Understand this error
+index.jsx:103 Error caught by boundary: SyntaxError: The requested module '/node_modules/.vite/deps/@mui_icons-material.js?v=214e3d72' does not provide an export named 'Bakery' (at PlaceIcons.jsx:49:3) {componentStack: '\n    at Lazy\n    at div\n    at O2 (http://localhos…at App (http://localhost:5173/src/App.jsx:210:35)'} Error Component Stack
+    at ErrorBoundary (index.jsx:94:5)
+    at App (App.jsx:184:35)
+overrideMethod @ hook.js:608
+componentDidCatch @ index.jsx:103
+callback @ chunk-HRZTCQ74.js?v=214e3d72:14130
+callCallback @ chunk-HRZTCQ74.js?v=214e3d72:11294
+commitUpdateQueue @ chunk-HRZTCQ74.js?v=214e3d72:11311
+commitLayoutEffectOnFiber @ chunk-HRZTCQ74.js?v=214e3d72:17121
+commitLayoutMountEffects_complete @ chunk-HRZTCQ74.js?v=214e3d72:18028
+commitLayoutEffects_begin @ chunk-HRZTCQ74.js?v=214e3d72:18017
+commitLayoutEffects @ chunk-HRZTCQ74.js?v=214e3d72:17968
+commitRootImpl @ chunk-HRZTCQ74.js?v=214e3d72:19404
+commitRoot @ chunk-HRZTCQ74.js?v=214e3d72:19328
+finishConcurrentRender @ chunk-HRZTCQ74.js?v=214e3d72:18811
+performConcurrentWorkOnRoot @ chunk-HRZTCQ74.js?v=214e3d72:18766
+workLoop @ chunk-HRZTCQ74.js?v=214e3d72:195
+flushWork @ chunk-HRZTCQ74.js?v=214e3d72:174
+performWorkUntilDeadline @ chunk-HRZTCQ74.js?v=214e3d72:382Understand this error
