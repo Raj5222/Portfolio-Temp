@@ -32,9 +32,9 @@ const Body = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(69, 183, 209, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 80%, rgba(153, 69, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(232, 121, 249, 0.08) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
   }
@@ -42,9 +42,10 @@ const Body = styled.div`
 
 const Wrapper = styled.div`
   background: linear-gradient(135deg, 
-    rgba(255, 107, 107, 0.05) 0%, 
-    rgba(78, 205, 196, 0.05) 50%, 
-    rgba(69, 183, 209, 0.05) 100%);
+    rgba(153, 69, 255, 0.08) 0%, 
+    rgba(192, 132, 252, 0.06) 30%, 
+    rgba(232, 121, 249, 0.05) 70%,
+    rgba(244, 114, 182, 0.04) 100%);
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -56,13 +57,13 @@ const Wrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff6b6b' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239945ff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     pointer-events: none;
   }
 `
 
 const LoadingContainer = styled.div`
-  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  background: linear-gradient(135deg, #0d0221 0%, #1a0b3d 30%, #2d1b69 60%, #3c2d8f 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,7 +80,7 @@ const LoadingContainer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(153, 69, 255, 0.15) 0%, transparent 70%);
     animation: pulse 3s ease-in-out infinite;
   }
   
@@ -106,7 +107,7 @@ const LoadingText = styled.div`
 `
 
 const LoadingSpan = styled.div`
-  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+  background: linear-gradient(135deg, #9945ff 0%, #c084fc 30%, #e879f9 70%, #f472b6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
