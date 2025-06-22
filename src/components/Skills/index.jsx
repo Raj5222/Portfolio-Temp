@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
-import { Pass, fadeInUp, staggerContainer, scaleIn } from '../../utils/Themes';
 
 const Container = styled.section`
   position: relative;
-  z-index: 1;
-  align-items: center;
-  padding: 120px 0;
+  padding: 80px 0;
   background: ${({ theme }) => theme.bg};
   overflow: hidden;
 
@@ -20,8 +18,8 @@ const Container = styled.section`
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 20% 30%, ${({ theme }) => theme.primary}15 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, ${({ theme }) => theme.secondary}15 0%, transparent 40%);
+      radial-gradient(circle at 20% 30%, ${({ theme }) => theme.primary}08 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, ${({ theme }) => theme.secondary}08 0%, transparent 50%);
     z-index: -1;
   }
 `;
@@ -33,16 +31,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 50px;
 `;
 
 const HeaderSection = styled.div`
   text-align: center;
   max-width: 800px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const Title = styled.h2`
@@ -65,8 +60,7 @@ const Subtitle = styled.p`
 `;
 
 const SkillsGrid = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 30px;
   width: 100%;
   max-width: 1000px;
@@ -75,15 +69,15 @@ const SkillsGrid = styled.div`
 const SkillCategory = styled(motion.div)`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
   background: ${({ theme }) => theme.card};
   backdrop-filter: blur(20px);
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 16px;
-  padding: 30px;
+  padding: 25px;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   flex-direction: ${({ alternate }) => alternate ? 'row-reverse' : 'row'};
 
   &::before {
@@ -99,45 +93,32 @@ const SkillCategory = styled(motion.div)`
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: ${({ theme }) => theme.glow};
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-color: ${({ theme }) => theme.primary};
-    background: ${({ theme }) => theme.card_hover};
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 20px;
-    padding: 25px;
+    padding: 20px;
   }
 `;
 
 const CategoryInfo = styled.div`
   flex: 1;
-  min-width: 250px;
+  min-width: 200px;
 `;
 
 const CategoryTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: ${({ theme }) => theme.text_primary};
-  margin-bottom: 10px;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: ${({ theme }) => theme.gradient_accent};
-    border-radius: 2px;
-  }
+  margin-bottom: 8px;
 `;
 
 const CategoryDescription = styled.p`
   color: ${({ theme }) => theme.text_secondary};
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.5;
 `;
 
@@ -145,62 +126,37 @@ const SkillsContainer = styled.div`
   flex: 2;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  justify-content: flex-start;
+  gap: 10px;
 `;
 
 const SkillItem = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 8px 14px;
   background: ${({ theme }) => theme.glass};
   backdrop-filter: blur(10px);
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 20px;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: ${({ theme }) => theme.gradient_secondary};
-    transition: left 0.3s ease;
-    z-index: -1;
-    opacity: 0.1;
-  }
 
   &:hover {
-    transform: translateY(-3px) scale(1.05);
+    transform: translateY(-2px);
     border-color: ${({ theme }) => theme.primary};
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
-
-    &::before {
-      left: 0;
-    }
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const SkillIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  transition: all 0.3s ease;
-
-  ${SkillItem}:hover & {
-    transform: scale(1.1);
-  }
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 `;
 
 const SkillName = styled.span`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
   white-space: nowrap;
@@ -211,21 +167,21 @@ const LoadingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 300px;
   gap: 20px;
 `;
 
 const LoadingSpinner = styled(motion.div)`
-  width: 80px;
-  height: 80px;
-  border: 4px solid ${({ theme }) => theme.border};
-  border-top: 4px solid ${({ theme }) => theme.primary};
+  width: 50px;
+  height: 50px;
+  border: 3px solid ${({ theme }) => theme.border};
+  border-top: 3px solid ${({ theme }) => theme.primary};
   border-radius: 50%;
 `;
 
 const LoadingText = styled.div`
   color: ${({ theme }) => theme.text_secondary};
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
 `;
 
@@ -233,17 +189,40 @@ const ErrorContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
-  color: ${({ theme }) => theme.error};
+  height: 300px;
+  color: ${({ theme }) => theme.error || '#ef4444'};
   text-align: center;
   flex-direction: column;
-  gap: 20px;
-
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
+  gap: 15px;
 `;
+
+// Static fallback data for faster initial load
+const fallbackSkills = [
+  {
+    title: "Frontend",
+    skills: [
+      { name: "React", image: "https://skillicons.dev/icons?i=react" },
+      { name: "JavaScript", image: "https://skillicons.dev/icons?i=js" },
+      { name: "HTML", image: "https://skillicons.dev/icons?i=html" },
+      { name: "CSS", image: "https://skillicons.dev/icons?i=css" }
+    ]
+  },
+  {
+    title: "Backend",
+    skills: [
+      { name: "Node.js", image: "https://skillicons.dev/icons?i=nodejs" },
+      { name: "Python", image: "https://skillicons.dev/icons?i=python" },
+      { name: "Express", image: "https://skillicons.dev/icons?i=express" }
+    ]
+  },
+  {
+    title: "Database",
+    skills: [
+      { name: "MongoDB", image: "https://skillicons.dev/icons?i=mongodb" },
+      { name: "MySQL", image: "https://skillicons.dev/icons?i=mysql" }
+    ]
+  }
+];
 
 const getCategoryDescription = (title) => {
   const descriptions = {
@@ -259,7 +238,7 @@ const getCategoryDescription = (title) => {
 };
 
 const Skills = () => {
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(fallbackSkills);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [ref, inView] = useInView({
@@ -267,22 +246,34 @@ const Skills = () => {
     triggerOnce: true
   });
 
-  if (window.raj === Pass) {
-    window.skills = skills;
-  }
-
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/Raj5222/Portfolio-data/main/skills.json');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
+        const response = await fetch('https://raw.githubusercontent.com/Raj5222/Portfolio-data/main/skills.json', {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
         if (!response.ok) {
           throw new Error('Failed to fetch skills data');
         }
+        
         const data = await response.json();
-        setSkills(data);
+        if (data && Array.isArray(data)) {
+          setSkills(data);
+        }
       } catch (error) {
-        setError(error.message);
-        console.error('Error fetching skills:', error);
+        if (error.name === 'AbortError') {
+          console.warn('Skills fetch timed out, using fallback data');
+        } else {
+          console.error('Error fetching skills:', error);
+          setError('Using cached skills data');
+        }
+        // Keep fallback data on error
       } finally {
         setLoading(false);
       }
@@ -290,6 +281,8 @@ const Skills = () => {
 
     fetchSkills();
   }, []);
+
+  const memoizedSkills = useMemo(() => skills, [skills]);
 
   if (loading) {
     return (
@@ -307,80 +300,79 @@ const Skills = () => {
     );
   }
 
-  if (error) {
-    return (
-      <Container id="skills">
-        <Wrapper>
-          <ErrorContainer>
-            <h3>Failed to load skills</h3>
-            <p>{error}</p>
-          </ErrorContainer>
-        </Wrapper>
-      </Container>
-    );
-  }
-
   return (
     <Container id="skills" ref={ref}>
       <Wrapper>
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          <HeaderSection>
-            <motion.div variants={fadeInUp}>
-              <Title>Skills & Technologies</Title>
-            </motion.div>
+        <HeaderSection>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <Title>Skills & Technologies</Title>
+            <Subtitle>
+              Here are the technologies and tools I use to build amazing digital experiences
+            </Subtitle>
+          </motion.div>
+        </HeaderSection>
 
-            <motion.div variants={fadeInUp}>
-              <Subtitle>
-                Here are the technologies and tools I use to build amazing digital experiences
-              </Subtitle>
-            </motion.div>
-          </HeaderSection>
+        <SkillsGrid>
+          {memoizedSkills.map((category, index) => (
+            <SkillCategory
+              key={category.title}
+              alternate={index % 2 === 1}
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ scale: 1.02 }}
+            >
+              <CategoryInfo>
+                <CategoryTitle>{category.title}</CategoryTitle>
+                <CategoryDescription>
+                  {getCategoryDescription(category.title)}
+                </CategoryDescription>
+              </CategoryInfo>
+              <SkillsContainer>
+                {category.skills.map((skill, skillIndex) => (
+                  <SkillItem
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ 
+                      delay: (index * 0.1) + (skillIndex * 0.05),
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <SkillIcon 
+                      src={skill.image} 
+                      alt={skill.name}
+                      loading="lazy"
+                    />
+                    <SkillName>{skill.name}</SkillName>
+                  </SkillItem>
+                ))}
+              </SkillsContainer>
+            </SkillCategory>
+          ))}
+        </SkillsGrid>
 
-          <SkillsGrid>
-            {skills.map((category, index) => (
-              <SkillCategory
-                key={category.title}
-                alternate={index % 2 === 1}
-                variants={scaleIn}
-                whileHover={{ scale: 1.01 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <CategoryInfo>
-                  <CategoryTitle>{category.title}</CategoryTitle>
-                  <CategoryDescription>
-                    {getCategoryDescription(category.title)}
-                  </CategoryDescription>
-                </CategoryInfo>
-                <SkillsContainer>
-                  {category.skills.map((skill, skillIndex) => (
-                    <SkillItem
-                      key={skill.name}
-                      variants={fadeInUp}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ 
-                        delay: (index * 0.1) + (skillIndex * 0.02),
-                        type: "spring",
-                        stiffness: 300
-                      }}
-                    >
-                      <SkillIcon 
-                        src={skill.image} 
-                        alt={skill.name}
-                        loading="lazy"
-                      />
-                      <SkillName>{skill.name}</SkillName>
-                    </SkillItem>
-                  ))}
-                </SkillsContainer>
-              </SkillCategory>
-            ))}
-          </SkillsGrid>
-        </motion.div>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{ 
+              color: '#f59e0b', 
+              fontSize: '0.9rem', 
+              textAlign: 'center',
+              marginTop: '20px'
+            }}
+          >
+            {error}
+          </motion.div>
+        )}
       </Wrapper>
     </Container>
   );

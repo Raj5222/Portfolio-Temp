@@ -1,5 +1,117 @@
+// Enhanced theme configuration for modern portfolio
+export const theme = {
+  // Main background and surfaces
+  bg: "#0F172A",
+  bg_secondary: "#1E293B", 
 
-export const Pass = "0206";
+  // Card backgrounds
+  card: "rgba(30, 41, 59, 0.8)",
+  card_light: "rgba(30, 41, 59, 0.6)",
+  card_hover: "rgba(30, 41, 59, 0.9)",
+
+  // Glass effects
+  glass: "rgba(255, 255, 255, 0.05)",
+
+  // Text colors
+  text_primary: "#F1F5F9",
+  text_secondary: "#94A3B8",
+
+  // Primary brand colors
+  primary: "#3B82F6",
+  secondary: "#8B5CF6",
+  accent: "#EC4899",
+
+  // Gradients
+  gradient_primary: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)",
+  gradient_secondary: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+  gradient_accent: "linear-gradient(135deg, #EC4899 0%, #F97316 100%)",
+
+  // Interactive states
+  hover: "#475569",
+  border: "rgba(148, 163, 184, 0.2)",
+
+  // Status colors
+  success: "#10B981",
+  warning: "#F59E0B",
+  error: "#EF4444",
+
+  // Shadows and effects
+  shadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
+  glow: "0 0 30px rgba(59, 130, 246, 0.3)",
+
+  // White for contrast
+  white: "#FFFFFF",
+
+  // Animation variants
+  fadeInUp: {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  },
+
+  staggerContainer: {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  },
+
+  scaleIn: {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  },
+
+  slideInLeft: {
+    hidden: { opacity: 0, x: -100 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  },
+
+  slideInRight: {
+    hidden: { opacity: 0, x: 100 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  }
+};
+
+// Animation variants for reuse
+export const fadeInUp = theme.fadeInUp;
+export const staggerContainer = theme.staggerContainer;
+export const scaleIn = theme.scaleIn;
+export const slideInLeft = theme.slideInLeft;
+export const slideInRight = theme.slideInRight;
+
+// Helper for theme validation
+export const Pass = "authenticated_user";
 export const Connect_URL = "https://portfolio-api-livid-one.vercel.app/portfolio";
 export const Page_Title = "Raj Sathvara";
 export const Full_name = "Raj Sathvara";
@@ -12,149 +124,4 @@ export const Section_Title = [
   "connect",
 ];
 
-// Single Dark Theme
-export const theme = {
-  bg: "#0a0f1c",
-  bgLight: "#151b2e",
-  primary: "#00d4ff",
-  secondary: "#7c3aed",
-  accent: "#f59e0b",
-  text_primary: "#ffffff",
-  text_secondary: "#94a3b8",
-  card: "#1a2332",
-  card_hover: "#1f2937",
-  card_light: "#374151",
-  button: "#00d4ff",
-  button_hover: "#0ea5e9",
-  white: "#ffffff",
-  black: "#000000",
-  border: "#374151",
-  glass: "rgba(255, 255, 255, 0.05)",
-  shadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-  glow: "0 20px 40px rgba(0, 212, 255, 0.3)",
-  error: "#ef4444",
-  success: "#10b981",
-  warning: "#f59e0b",
-  gradient_primary: "linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%)",
-  gradient_secondary: "linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%)",
-  gradient_accent: "linear-gradient(135deg, #f59e0b 0%, #00d4ff 100%)",
-}
-
-// Enhanced Animation variants
-export const fadeInUp = {
-  hidden: { 
-    opacity: 0, 
-    y: 80,
-    scale: 0.8
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    scale: 1,
-    transition: { 
-      duration: 0.8, 
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
-  }
-};
-
-export const fadeInLeft = {
-  hidden: { 
-    opacity: 0, 
-    x: -80,
-    scale: 0.8
-  },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    scale: 1,
-    transition: { 
-      duration: 0.8, 
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
-  }
-};
-
-export const fadeInRight = {
-  hidden: { 
-    opacity: 0, 
-    x: 80,
-    scale: 0.8
-  },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    scale: 1,
-    transition: { 
-      duration: 0.8, 
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
-  }
-};
-
-export const scaleIn = {
-  hidden: { 
-    opacity: 0, 
-    scale: 0.6,
-    rotateY: 15
-  },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    rotateY: 0,
-    transition: { 
-      duration: 0.8, 
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
-  }
-};
-
-export const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    }
-  }
-};
-
-export const slideInFromBottom = {
-  hidden: { 
-    opacity: 0, 
-    y: 100,
-    rotateX: 45
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    rotateX: 0,
-    transition: { 
-      duration: 1, 
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
-  }
-};
-
-export const floatingAnimation = {
-  y: [0, -20, 0],
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut"
-  }
-};
-
-export const glowEffect = {
-  boxShadow: [
-    "0 0 20px rgba(0, 212, 255, 0.3)",
-    "0 0 40px rgba(0, 212, 255, 0.6)",
-    "0 0 20px rgba(0, 212, 255, 0.3)"
-  ],
-  transition: {
-    duration: 2,
-    repeat: Infinity,
-    ease: "easeInOut"
-  }
-};
+export default theme;

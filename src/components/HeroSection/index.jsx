@@ -9,30 +9,44 @@ import { Bio } from '../../data/constants';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope, FaDownload } from 'react-icons/fa';
 import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiMongodb } from 'react-icons/si';
 
-const HeroContainer = styled.div`
+const HeroContainer = styled.section`
   min-height: 100vh;
-  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.05) 0%, 
-    rgba(147, 51, 234, 0.05) 50%, 
-    rgba(236, 72, 153, 0.05) 100%);
-  
+    rgba(59, 130, 246, 0.1) 0%, 
+    rgba(147, 51, 234, 0.1) 50%, 
+    rgba(236, 72, 153, 0.1) 100%);
+  padding: 2rem;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.15) 0%, transparent 40%);
+    z-index: -1;
+  }
+
   @media (max-width: 768px) {
     padding: 1rem;
     min-height: 90vh;
   }
-`
+`;
 
-const ContentGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+const ContentWrapper = styled.div`
   max-width: 1200px;
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 4rem;
   align-items: center;
   
   @media (max-width: 968px) {
@@ -40,47 +54,50 @@ const ContentGrid = styled.div`
     gap: 3rem;
     text-align: center;
   }
-`
+`;
 
 const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-`
+  gap: 1.5rem;
+`;
 
 const Greeting = styled(motion.div)`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.primary};
   font-weight: 600;
-  margin-bottom: 0.5rem;
-`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+`;
 
 const Title = styled(motion.h1)`
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  color: ${({ theme }) => theme.text_primary};
-  line-height: 1.2;
+  font-weight: 800;
+  line-height: 1.1;
   margin: 0;
   
-  .highlight {
+  .name {
     background: linear-gradient(135deg, #3b82f6 0%, #9333ea 50%, #ec4899 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-`
+`;
 
-const TypewriterContainer = styled(motion.div)`
+const TypewriterWrapper = styled(motion.div)`
   font-size: 1.5rem;
+  font-weight: 600;
   color: ${({ theme }) => theme.text_secondary};
-  font-weight: 500;
-  margin: 1rem 0;
   
   .typewriter-text {
     color: ${({ theme }) => theme.primary};
-    font-weight: 600;
   }
-`
+`;
 
 const Description = styled(motion.p)`
   font-size: 1.1rem;
@@ -88,7 +105,7 @@ const Description = styled(motion.p)`
   line-height: 1.6;
   margin: 0;
   max-width: 500px;
-`
+`;
 
 const ButtonGroup = styled(motion.div)`
   display: flex;
@@ -98,7 +115,11 @@ const ButtonGroup = styled(motion.div)`
   @media (max-width: 640px) {
     flex-direction: column;
   }
-`
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+`;
 
 const PrimaryButton = styled(motion.a)`
   display: inline-flex;
@@ -112,14 +133,12 @@ const PrimaryButton = styled(motion.a)`
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
   
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
   }
-`
+`;
 
 const SecondaryButton = styled(motion.a)`
   display: inline-flex;
@@ -140,13 +159,77 @@ const SecondaryButton = styled(motion.a)`
     color: white;
     transform: translateY(-2px);
   }
-`
+`;
+
+const ImageContainer = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  position: relative;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #3b82f6, #9333ea, #ec4899);
+  padding: 4px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 768px) {
+    width: 280px;
+    height: 280px;
+  }
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.bg};
+`;
+
+const SkillsPreview = styled(motion.div)`
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+`;
+
+const SkillBadge = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 16px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 20px;
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 0.9rem;
+  font-weight: 500;
+  
+  .icon {
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.primary};
+  }
+`;
 
 const SocialLinks = styled(motion.div)`
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
-`
+  margin-top: 1.5rem;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+`;
 
 const SocialLink = styled(motion.a)`
   display: flex;
@@ -167,83 +250,7 @@ const SocialLink = styled(motion.a)`
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
   }
-`
-
-const ImageContainer = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  position: relative;
-`
-
-const ImageCard = styled.div`
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.1) 0%, 
-    rgba(147, 51, 234, 0.1) 50%, 
-    rgba(236, 72, 153, 0.1) 100%);
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-`
-
-const ProfileImage = styled.img`
-  width: 350px;
-  height: 350px;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 20px;
-  
-  @media (max-width: 768px) {
-    width: 280px;
-    height: 280px;
-  }
-`
-
-const SkillsPreview = styled(motion.div)`
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-`
-
-const SkillBadge = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 8px 16px;
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  border-radius: 20px;
-  color: ${({ theme }) => theme.text_secondary};
-  font-size: 0.9rem;
-  font-weight: 500;
-  
-  .icon {
-    font-size: 1.2rem;
-  }
-`
-
-const FloatingElements = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-`
-
-const FloatingElement = styled(motion.div)`
-  position: absolute;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  background: ${props => props.color};
-  border-radius: 50%;
-  filter: blur(1px);
-  opacity: 0.6;
-`
+`;
 
 const HeroSection = () => {
   const [ref, inView] = useInView({
@@ -259,37 +266,9 @@ const HeroSection = () => {
     { name: 'MongoDB', icon: <SiMongodb /> }
   ];
 
-  const floatingElements = [
-    { id: 1, size: 20, color: 'rgba(59, 130, 246, 0.3)', x: '10%', y: '20%' },
-    { id: 2, size: 15, color: 'rgba(147, 51, 234, 0.3)', x: '80%', y: '10%' },
-    { id: 3, size: 25, color: 'rgba(236, 72, 153, 0.3)', x: '70%', y: '70%' },
-    { id: 4, size: 18, color: 'rgba(59, 130, 246, 0.2)', x: '20%', y: '80%' },
-  ];
-
   return (
-    <HeroContainer ref={ref}>
-      <FloatingElements>
-        {floatingElements.map((element) => (
-          <FloatingElement
-            key={element.id}
-            size={element.size}
-            color={element.color}
-            style={{ left: element.x, top: element.y }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 6 + element.id,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </FloatingElements>
-
-      <ContentGrid>
+    <HeroContainer id="home" ref={ref}>
+      <ContentWrapper>
         <TextContent>
           <Greeting
             initial={{ opacity: 0, y: 20 }}
@@ -304,10 +283,10 @@ const HeroSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <span className="highlight">{Bio.name}</span>
+            <span className="name">{Bio.name}</span>
           </Title>
 
-          <TypewriterContainer
+          <TypewriterWrapper
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -324,7 +303,7 @@ const HeroSection = () => {
                 }}
               />
             </span>
-          </TypewriterContainer>
+          </TypewriterWrapper>
 
           <Description
             initial={{ opacity: 0, y: 20 }}
@@ -334,10 +313,29 @@ const HeroSection = () => {
             {Bio.description}
           </Description>
 
-          <ButtonGroup
+          <SkillsPreview
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            {skills.map((skill, index) => (
+              <SkillBadge
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.4, delay: 1 + index * 0.1 }}
+                whileHover={{ scale: 1.1 }}
+              >
+                <span className="icon">{skill.icon}</span>
+                {skill.name}
+              </SkillBadge>
+            ))}
+          </SkillsPreview>
+
+          <ButtonGroup
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 1.2 }}
           >
             <PrimaryButton
               href={Bio.resume}
@@ -356,25 +354,6 @@ const HeroSection = () => {
               <FaEnvelope /> Get In Touch
             </SecondaryButton>
           </ButtonGroup>
-
-          <SkillsPreview
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1 }}
-          >
-            {skills.map((skill, index) => (
-              <SkillBadge
-                key={skill.name}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.4, delay: 1.2 + index * 0.1 }}
-                whileHover={{ scale: 1.1 }}
-              >
-                <span className="icon">{skill.icon}</span>
-                {skill.name}
-              </SkillBadge>
-            ))}
-          </SkillsPreview>
 
           <SocialLinks
             initial={{ opacity: 0, y: 20 }}
@@ -433,15 +412,15 @@ const HeroSection = () => {
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <ImageCard>
+          <ImageWrapper>
             <ProfileImage 
               src={HeroImg} 
               alt="Raj Sathvara - Full Stack Developer"
               loading="eager"
             />
-          </ImageCard>
+          </ImageWrapper>
         </ImageContainer>
-      </ContentGrid>
+      </ContentWrapper>
     </HeroContainer>
   );
 };
