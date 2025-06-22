@@ -20,8 +20,8 @@ import {
 import HeroImg from '../../images/Raj Image.jpg';
 import Typewriter from 'typewriter-effect';
 import { Bio } from '../../data/constants';
-import { Pass } from '../../utils/Themes';
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { Pass, fadeInUp, fadeInLeft, fadeInRight, staggerContainer } from '../../utils/Themes';
+import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
 
 const HeroSection = () => {
   const [ref, inView] = useInView({
@@ -33,49 +33,28 @@ const HeroSection = () => {
     window.bio = Bio;
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        duration: 0.8
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
     <div id="about">
       <HeroContainer>
         <HeroBg>
           <HeroBgAnimation />
         </HeroBg>
+        
         <HeroInnerContainer ref={ref}>
           <motion.div
-            variants={containerVariants}
+            variants={staggerContainer}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
+            style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}
           >
             <HeroLeftContainer>
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeInLeft}>
                 <Title>
                   Hi, I am <br /> {Bio.name}
                 </Title>
               </motion.div>
               
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeInLeft}>
                 <TextLoop>
                   I am a
                   <Span>
@@ -85,17 +64,18 @@ const HeroSection = () => {
                         autoStart: true,
                         loop: true,
                         delay: 75,
+                        deleteSpeed: 50,
                       }}
                     />
                   </Span>
                 </TextLoop>
               </motion.div>
               
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeInLeft}>
                 <SubTitle>{Bio.description}</SubTitle>
               </motion.div>
               
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeInLeft}>
                 <ResumeButton 
                   href={Bio.resume} 
                   target='_blank'
@@ -104,11 +84,11 @@ const HeroSection = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Check Resume
+                  View Resume
                 </ResumeButton>
               </motion.div>
               
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeInLeft}>
                 <SocialLinks>
                   {Bio.github && (
                     <SocialLink 
@@ -116,7 +96,7 @@ const HeroSection = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       as={motion.a}
-                      whileHover={{ scale: 1.2, y: -3 }}
+                      whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <FaGithub />
@@ -128,7 +108,7 @@ const HeroSection = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       as={motion.a}
-                      whileHover={{ scale: 1.2, y: -3 }}
+                      whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <FaLinkedin />
@@ -140,7 +120,7 @@ const HeroSection = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       as={motion.a}
-                      whileHover={{ scale: 1.2, y: -3 }}
+                      whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <FaTwitter />
@@ -152,23 +132,39 @@ const HeroSection = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       as={motion.a}
-                      whileHover={{ scale: 1.2, y: -3 }}
+                      whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <FaInstagram />
                     </SocialLink>
                   )}
+                  <SocialLink 
+                    href="#connect" 
+                    as={motion.a}
+                    whileHover={{ scale: 1.2, y: -5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <FaEnvelope />
+                  </SocialLink>
                 </SocialLinks>
               </motion.div>
             </HeroLeftContainer>
 
             <HeroRightContainer>
               <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
+                variants={fadeInRight}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotate: [0, 5, -5, 0],
+                  transition: { duration: 0.5 }
+                }}
                 transition={{ duration: 0.3 }}
               >
-                <Img src={HeroImg} alt="Raj Sathvara - Portfolio" />
+                <Img 
+                  src={HeroImg} 
+                  alt="Raj Sathvara - Full Stack Developer Portfolio"
+                  loading="eager"
+                />
               </motion.div>
             </HeroRightContainer>
           </motion.div>

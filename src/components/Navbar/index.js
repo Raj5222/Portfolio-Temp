@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Nav,
   NavLink,
@@ -22,6 +22,7 @@ import { Page_Title, Section_Title } from "../../utils/Themes";
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +40,11 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     sections.forEach((section) => {
       const rect = section.getBoundingClientRect();
       if (
-        rect.top >= 0 &&
+        rect.top >= -100 &&
         rect.top < window.innerHeight / 2 &&
         Section_Title.includes(section.id)
       ) {
+        setActiveSection(section.id);
         document.title = `${Page_Title} - ${
           String(section.id[0]).toUpperCase() + String(section.id).slice(1)
         }`;
@@ -51,9 +53,10 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   };
 
   const navVariants = {
-    hidden: { y: -100 },
+    hidden: { y: -100, opacity: 0 },
     visible: { 
       y: 0,
+      opacity: 1,
       transition: { 
         type: "spring", 
         stiffness: 100, 
@@ -62,12 +65,40 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     }
   };
 
+  const mobileMenuVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: -30,
+      scale: 0.95
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -30,
+      scale: 0.95,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
+  const menuItems = ["About", "Skills", "Experience", "Projects", "Education", "Connect"];
+
   return (
     <Nav scrolled={scrolled}>
       <motion.div
         variants={navVariants}
         initial="hidden"
         animate="visible"
+        style={{ width: '100%' }}
       >
         <NavbarContainer>
           <NavLogo to="/">
@@ -85,10 +116,13 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             >
               <motion.img 
                 src={Icon} 
-                alt="Logo" 
-                style={{ width: "40px", marginRight: "8px" }}
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
+                alt="Raj Sathvara Logo" 
+                style={{ width: "45px", marginRight: "10px" }}
+                whileHover={{ 
+                  rotate: 360,
+                  scale: 1.1
+                }}
+                transition={{ duration: 0.6 }}
               />
               <Span>Portfolio</Span>
             </motion.a>
@@ -98,13 +132,15 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             <motion.div
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
             >
               {isOpen ? <FaTimes /> : <FaBars />}
             </motion.div>
           </MobileIcon>
 
           <NavItems>
-            {["About", "Skills", "Experience", "Projects", "Education", "Connect"].map((item, index) => (
+            {menuItems.map((item, index) => (
               <motion.div
                 key={item}
                 initial={{ opacity: 0, y: -20 }}
@@ -114,6 +150,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                 <NavLink 
                   href={`#${item.toLowerCase()}`}
                   onClick={() => setIsOpen(false)}
+                  className={activeSection === item.toLowerCase() ? 'active' : ''}
                 >
                   {item}
                 </NavLink>
@@ -124,57 +161,92 @@ const Navbar = ({ darkMode, toggleTheme }) => {
           <ButtonContainer>
             <ThemeToggle onClick={toggleTheme}>
               <motion.div
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
+                animate={{ rotate: darkMode ? 0 : 180 }}
+                transition={{ duration: 0.3 }}
               >
                 {darkMode ? <FaSun /> : <FaMoon />}
               </motion.div>
             </ThemeToggle>
             
-            <GitHubButton 
-              href={Bio.github} 
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              GitHub Profile
-            </GitHubButton>
-          </ButtonContainer>
-
-          {isOpen && (
-            <MobileMenu
-              as={motion.div}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              isOpen={isOpen}
-            >
-              {["About", "Skills", "Experience", "Projects", "Education", "Connect"].map((item) => (
-                <MobileLink
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item}
-                </MobileLink>
-              ))}
-              
-              <ThemeToggle onClick={toggleTheme} style={{ margin: "1rem 0" }}>
-                {darkMode ? <FaSun /> : <FaMoon />}
-                <span style={{ marginLeft: "8px" }}>
-                  {darkMode ? "Light Mode" : "Dark Mode"}
-                </span>
-              </ThemeToggle>
-
-              <GitHubButton
-                href={Bio.github}
+              <GitHubButton 
+                href={Bio.github} 
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ padding: "8px 16px", fontSize: "14px" }}
               >
                 GitHub Profile
               </GitHubButton>
-            </MobileMenu>
-          )}
+            </motion.div>
+          </ButtonContainer>
+
+          <AnimatePresence>
+            {isOpen && (
+              <MobileMenu
+                as={motion.div}
+                variants={mobileMenuVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                isOpen={isOpen}
+              >
+                {menuItems.map((item, index) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <MobileLink
+                      href={`#${item.toLowerCase()}`}
+                      onClick={() => setIsOpen(false)}
+                      className={activeSection === item.toLowerCase() ? 'active' : ''}
+                    >
+                      {item}
+                    </MobileLink>
+                  </motion.div>
+                ))}
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: '10px' }}
+                >
+                  <ThemeToggle onClick={toggleTheme} style={{ margin: 0 }}>
+                    <motion.div
+                      animate={{ rotate: darkMode ? 0 : 180 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {darkMode ? <FaSun /> : <FaMoon />}
+                    </motion.div>
+                  </ThemeToggle>
+                  <span style={{ color: 'inherit', fontSize: '14px' }}>
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                  </span>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <GitHubButton
+                    href={Bio.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ padding: "10px 20px", fontSize: "14px", height: "40px" }}
+                  >
+                    GitHub Profile
+                  </GitHubButton>
+                </motion.div>
+              </MobileMenu>
+            )}
+          </AnimatePresence>
         </NavbarContainer>
       </motion.div>
     </Nav>
