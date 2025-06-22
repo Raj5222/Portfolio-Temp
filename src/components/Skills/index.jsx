@@ -40,6 +40,10 @@ const Wrapper = styled.div`
 const HeaderSection = styled.div`
   text-align: center;
   max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.h2`

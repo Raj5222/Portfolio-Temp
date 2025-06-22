@@ -30,27 +30,32 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Title = styled.div`
-  font-size: 42px;
+export const Title = styled.h2`
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 24px;
   text-align: center;
-  font-weight: 600;
+  background: ${({ theme }) => theme.gradient_primary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
   margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
   @media (max-width: 768px) {
     margin-top: 12px;
-    font-size: 32px;
   }
 `;
 
-export const Desc = styled.div`
-  font-size: 18px;
-  text-align: center;
-  max-width: 90vw;
+export const Desc = styled.p`
+  font-size: 1.25rem;
   color: ${({ theme }) => theme.text_secondary};
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
   @media (max-width: 768px) {
     margin-top: 12px;
-    max-width: 90vw;
-    font-size: 16px;
+    font-size: 1.1rem;
   }
 `;
 
