@@ -1,64 +1,3 @@
-
-export const darkTheme = {
-  bg: "#0a0a0a",
-  bgLight: "#1a1a1a",
-  primary: "#00d4aa",
-  secondary: "#00b894",
-  accent: "#00cec9",
-  tertiary: "#81ecec",
-  quaternary: "#fdcb6e",
-  text_primary: "#ffffff",
-  text_secondary: "#b2bec3",
-  text_tertiary: "#636e72",
-  card: "#1e1e1e",
-  card_light: "#2d2d2d",
-  card_hover: "rgba(0, 212, 170, 0.1)",
-  button: "#00d4aa",
-  button_hover: "#00b894",
-  white: "#ffffff",
-  black: "#000000",
-  brand: "#00d4aa",
-  shadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
-  shadow_secondary: "0 5px 15px rgba(0, 0, 0, 0.2)",
-  glow: "0 0 20px rgba(0, 212, 170, 0.3)",
-  border: "#2d2d2d",
-  glass: "rgba(255, 255, 255, 0.05)",
-  success: "#00b894",
-  warning: "#fdcb6e",
-  error: "#e17055",
-  info: "#74b9ff"
-};
-
-export const lightTheme = {
-  bg: "#ffffff",
-  bgLight: "#f8f9fa",
-  primary: "#2d3436",
-  secondary: "#636e72",
-  accent: "#00b894",
-  tertiary: "#00d4aa",
-  quaternary: "#fdcb6e",
-  text_primary: "#2d3436",
-  text_secondary: "#636e72",
-  text_tertiary: "#b2bec3",
-  card: "#ffffff",
-  card_light: "#f8f9fa",
-  card_hover: "rgba(45, 52, 54, 0.05)",
-  button: "#2d3436",
-  button_hover: "#636e72",
-  white: "#ffffff",
-  black: "#000000",
-  brand: "#00d4aa",
-  shadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
-  shadow_secondary: "0 5px 15px rgba(0, 0, 0, 0.08)",
-  glow: "0 0 20px rgba(0, 212, 170, 0.2)",
-  border: "#e9ecef",
-  glass: "rgba(0, 0, 0, 0.03)",
-  success: "#00b894",
-  warning: "#fdcb6e",
-  error: "#e17055",
-  info: "#74b9ff"
-};
-
 export const Pass = "0206";
 export const Connect_URL = "https://portfolio-api-livid-one.vercel.app/portfolio";
 export const Page_Title = "Raj Sathvara";
@@ -71,6 +10,33 @@ export const Section_Title = [
   "education",
   "connect",
 ];
+
+// Modern Color Palette
+export const darkTheme = {
+  bg: "#0f172a",
+  bgLight: "#1e293b",
+  primary: "#3b82f6",
+  text_primary: "#f8fafc",
+  text_secondary: "#94a3b8",
+  card: "#1e293b",
+  card_light: "#334155",
+  button: "#3b82f6",
+  white: "#ffffff",
+  black: "#000000",
+}
+
+export const lightTheme = {
+  bg: "#ffffff",
+  bgLight: "#f8fafc",
+  primary: "#3b82f6",
+  text_primary: "#1e293b",
+  text_secondary: "#64748b",
+  card: "#ffffff",
+  card_light: "#f1f5f9",
+  button: "#3b82f6",
+  white: "#ffffff",
+  black: "#000000",
+}
 
 // Animation variants
 export const fadeInUp = {
@@ -152,33 +118,28 @@ export const scaleIn = {
   }
 };
 
-export const slideInFromTop = {
-  hidden: { 
-    y: -100,
+export const slideInFromBottom = {
+  hidden: {
+    y: 100,
     opacity: 0
   },
-  visible: { 
+  visible: {
     y: 0,
     opacity: 1,
-    transition: { 
+    transition: {
       duration: 0.6,
       ease: "easeOut"
     }
   }
 };
 
-export const bounceIn = {
-  hidden: { 
-    scale: 0.3,
-    opacity: 0
-  },
-  visible: { 
-    scale: 1,
-    opacity: 1,
-    transition: { 
-      type: "spring",
-      stiffness: 400,
-      damping: 10
+export const cardHover = {
+  hover: {
+    y: -10,
+    scale: 1.02,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
     }
   }
 };

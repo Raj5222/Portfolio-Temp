@@ -1,13 +1,13 @@
+
 import { ThemeProvider } from "styled-components";
 import { useState, useEffect, Suspense, lazy } from "react";
 import { darkTheme, lightTheme } from './utils/Themes'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from "styled-components";
-import Typewriter from "typewriter-effect";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-// Lazy load components for better performance
+// Lazy load components
 const Navbar = lazy(() => import("./components/Navbar"));
 const HeroSection = lazy(() => import("./components/HeroSection/index"));
 const Skills = lazy(() => import("./components/Skills"));
@@ -18,185 +18,193 @@ const Experience = lazy(() => import("./components/Experience"));
 const Education = lazy(() => import("./components/Education"));
 const ProjectDetails = lazy(() => import("./components/ProjectDetails"));
 
-
 const Body = styled.div`
   background: ${({ theme }) => theme.bg};
   width: 100%;
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+`
 
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
+const MainContainer = styled.div`
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+`
+
+const Sidebar = styled(motion.nav)`
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 280px;
+  background: linear-gradient(180deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.95) 50%, 
+    rgba(51, 65, 85, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(148, 163, 184, 0.1);
+  z-index: 1000;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  
+  @media (max-width: 1024px) {
+    transform: translateX(${props => props.isOpen ? '0' : '-100%'});
+    transition: transform 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
     width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 80%, rgba(153, 69, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(232, 121, 249, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
   }
 `
 
-const Wrapper = styled.div`
-  background: linear-gradient(135deg, 
-    rgba(153, 69, 255, 0.08) 0%, 
-    rgba(192, 132, 252, 0.06) 30%, 
-    rgba(232, 121, 249, 0.05) 70%,
-    rgba(244, 114, 182, 0.04) 100%);
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 2rem;
+  margin-bottom: 3rem;
+  
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+  
+  h2 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+  }
+`
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+const NavList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+`
+
+const NavItem = styled(motion.li)`
+  margin: 0.5rem 1.5rem;
+`
+
+const NavLink = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: ${props => props.active ? 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)' : 'transparent'};
+  border: none;
+  border-radius: 12px;
+  color: ${props => props.active ? '#ffffff' : '#94a3b8'};
+  font-size: 0.95rem;
+  font-weight: ${props => props.active ? '600' : '500'};
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-family: inherit;
+  
+  &:hover {
+    background: ${props => props.active ? 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)' : 'rgba(59, 130, 246, 0.1)'};
+    color: #ffffff;
+    transform: translateX(4px);
+  }
+  
+  .icon {
+    font-size: 1.2rem;
+    min-width: 24px;
+  }
+`
+
+const MainContent = styled.div`
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  min-height: 100vh;
+  
+  @media (max-width: 1024px) {
+    margin-left: 0;
     width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239945ff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
+  }
+`
+
+const ContentSection = styled(motion.div)`
+  min-height: 100vh;
+  padding: 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+`
+
+const MobileMenuToggle = styled.button`
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  display: none;
+  
+  @media (max-width: 1024px) {
+    display: block;
+  }
+`
+
+const ThemeToggle = styled.button`
+  margin: 1.5rem;
+  padding: 12px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #ffffff;
   }
 `
 
 const LoadingContainer = styled.div`
-  background: linear-gradient(135deg, #0d0221 0%, #1a0b3d 30%, #2d1b69 60%, #3c2d8f 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
-  gap: 3rem;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(153, 69, 255, 0.15) 0%, transparent 70%);
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
-`
-
-const LoadingText = styled.div`
-  font-weight: 700;
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  display: flex;
-  gap: 15px;
-  color: #ffffff;
-  line-height: 1.2;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 10px;
-  }
-`
-
-const LoadingSpan = styled.div`
-  background: linear-gradient(135deg, #9945ff 0%, #c084fc 30%, #e879f9 70%, #f472b6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease-in-out infinite;
-
-  @keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-`
-
-const LoadingSpinner = styled(motion.div)`
-  width: 80px;
-  height: 80px;
-  border: 4px solid rgba(255, 107, 107, 0.2);
-  border-top: 4px solid #ff6b6b;
-  border-right: 4px solid #4ecdc4;
-  border-radius: 50%;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border: 2px solid transparent;
-    border-top: 2px solid #45b7d1;
-    border-radius: 50%;
-    animation: spin 1.5s linear infinite reverse;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`
-
-const ComponentLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 200px;
   color: ${({ theme }) => theme.text_secondary};
-  font-size: 1.2rem;
-  font-weight: 500;
-`
-const FloatingElements = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-`
-
-const FloatingElement = styled(motion.div)`
-  position: absolute;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  background: ${props => props.color};
-  border-radius: 50%;
-  filter: blur(1px);
-  opacity: 0.6;
+  font-size: 1.1rem;
 `
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [activeSection, setActiveSection] = useState('home');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
-  const [loading, setLoading] = useState(true);
+
+  const sections = [
+    { id: 'home', label: 'Home', icon: '🏠' },
+    { id: 'skills', label: 'Skills', icon: '⚡' },
+    { id: 'experience', label: 'Experience', icon: '💼' },
+    { id: 'projects', label: 'Projects', icon: '🚀' },
+    { id: 'education', label: 'Education', icon: '🎓' },
+    { id: 'contact', label: 'Contact', icon: '📧' }
+  ];
 
   useEffect(() => {
-    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setDarkMode(savedTheme === 'dark');
     }
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3500);
-
-    return () => clearTimeout(timer);
   }, []);
 
   const toggleTheme = () => {
@@ -205,102 +213,92 @@ function App() {
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
   };
 
-  // Floating elements data
-  const floatingElements = [
-    { id: 1, size: 20, color: 'rgba(255, 107, 107, 0.3)', x: '10%', y: '20%' },
-    { id: 2, size: 15, color: 'rgba(78, 205, 196, 0.3)', x: '80%', y: '10%' },
-    { id: 3, size: 25, color: 'rgba(69, 183, 209, 0.3)', x: '70%', y: '70%' },
-    { id: 4, size: 18, color: 'rgba(150, 206, 180, 0.3)', x: '20%', y: '80%' },
-    { id: 5, size: 22, color: 'rgba(252, 191, 73, 0.3)', x: '90%', y: '50%' },
-  ];
-
-  if (loading) {
-    return (
-      <ThemeProvider theme={darkTheme}>
-        <LoadingContainer>
-          <LoadingSpinner
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-          <LoadingText>
-            I am a
-            <LoadingSpan>
-              <Typewriter
-                options={{
-                  strings: [
-                    "Full Stack Developer",
-                    "Backend Developer", 
-                    "Frontend Developer",
-                    "UI/UX Designer",
-                    "Problem Solver"
-                  ],
-                  autoStart: true,
-                  loop: true,
-                  delay: 75,
-                  deleteSpeed: 50,
-                }}
-              />
-            </LoadingSpan>
-          </LoadingText>
-        </LoadingContainer>
-      </ThemeProvider>
-    );
-  }
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'home':
+        return <HeroSection />;
+      case 'skills':
+        return <Skills />;
+      case 'experience':
+        return <Experience />;
+      case 'projects':
+        return <Projects openModal={openModal} setOpenModal={setOpenModal} />;
+      case 'education':
+        return <Education />;
+      case 'contact':
+        return <Contact />;
+      default:
+        return <HeroSection />;
+    }
+  };
 
   return (
     <ErrorBoundary>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <Router>
           <Body>
-            <FloatingElements>
-              {floatingElements.map((element) => (
-                <FloatingElement
-                  key={element.id}
-                  size={element.size}
-                  color={element.color}
-                  style={{ left: element.x, top: element.y }}
-                  animate={{
-                    y: [0, -30, 0],
-                    x: [0, 15, 0],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 6 + element.id,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              ))}
-            </FloatingElements>
+            <MainContainer>
+              <MobileMenuToggle onClick={() => setSidebarOpen(!sidebarOpen)}>
+                {sidebarOpen ? '✕' : '☰'}
+              </MobileMenuToggle>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
+              <Sidebar
+                isOpen={sidebarOpen}
+                initial={{ x: -280 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                <Suspense fallback={<ComponentLoader>Loading...</ComponentLoader>}>
-                  <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
-                  <HeroSection />
-                  <Wrapper>
-                    <Skills />
-                    <Experience />
-                  </Wrapper>
-                  <Projects openModal={openModal} setOpenModal={setOpenModal} />
-                  <Wrapper>
-                    <Education />
-                    
-                    <Contact />
-                  </Wrapper>
-                  <Footer />
-                  {openModal.state && (
-                    <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
-                  )}
-                </Suspense>
-              </motion.div>
-            </AnimatePresence>
+                <Logo>
+                  <img src="/Raj-logo.jpg" alt="Raj Sathvara" />
+                  <h2>Raj Sathvara</h2>
+                </Logo>
 
+                <NavList>
+                  {sections.map((section, index) => (
+                    <NavItem
+                      key={section.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <NavLink
+                        active={activeSection === section.id}
+                        onClick={() => {
+                          setActiveSection(section.id);
+                          setSidebarOpen(false);
+                        }}
+                      >
+                        <span className="icon">{section.icon}</span>
+                        {section.label}
+                      </NavLink>
+                    </NavItem>
+                  ))}
+                </NavList>
+
+                <ThemeToggle onClick={toggleTheme}>
+                  {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                </ThemeToggle>
+              </Sidebar>
+
+              <MainContent>
+                <ContentSection
+                  key={activeSection}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
+                    {renderSection()}
+                  </Suspense>
+                </ContentSection>
+              </MainContent>
+            </MainContainer>
+
+            <Footer />
+            
+            {openModal.state && (
+              <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
+            )}
           </Body>
         </Router>
       </ThemeProvider>
