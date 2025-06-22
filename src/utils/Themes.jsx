@@ -12,8 +12,8 @@ export const Section_Title = [
   "connect",
 ];
 
-// Modern Enhanced Color Palette
-export const darkTheme = {
+// Single Dark Theme
+export const theme = {
   bg: "#0a0f1c",
   bgLight: "#151b2e",
   primary: "#00d4ff",
@@ -38,33 +38,6 @@ export const darkTheme = {
   gradient_primary: "linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%)",
   gradient_secondary: "linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%)",
   gradient_accent: "linear-gradient(135deg, #f59e0b 0%, #00d4ff 100%)",
-}
-
-export const lightTheme = {
-  bg: "#ffffff",
-  bgLight: "#f8fafc",
-  primary: "#0ea5e9",
-  secondary: "#7c3aed",
-  accent: "#f59e0b",
-  text_primary: "#1e293b",
-  text_secondary: "#64748b",
-  card: "#ffffff",
-  card_hover: "#f8fafc",
-  card_light: "#f1f5f9",
-  button: "#0ea5e9",
-  button_hover: "#0284c7",
-  white: "#ffffff",
-  black: "#000000",
-  border: "#e2e8f0",
-  glass: "rgba(255, 255, 255, 0.8)",
-  shadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-  glow: "0 20px 40px rgba(14, 165, 233, 0.3)",
-  error: "#ef4444",
-  success: "#10b981",
-  warning: "#f59e0b",
-  gradient_primary: "linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%)",
-  gradient_secondary: "linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%)",
-  gradient_accent: "linear-gradient(135deg, #f59e0b 0%, #0ea5e9 100%)",
 }
 
 // Enhanced Animation variants

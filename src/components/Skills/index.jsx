@@ -62,26 +62,26 @@ const Subtitle = styled.p`
 `;
 
 const SkillsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   width: 100%;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
+  max-width: 1000px;
 `;
 
 const SkillCategory = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 40px;
   background: ${({ theme }) => theme.card};
   backdrop-filter: blur(20px);
   border: 1px solid ${({ theme }) => theme.border};
-  border-radius: 24px;
-  padding: 40px;
+  border-radius: 16px;
+  padding: 30px;
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  flex-direction: ${({ alternate }) => alternate ? 'row-reverse' : 'row'};
 
   &::before {
     content: '';
@@ -89,56 +89,72 @@ const SkillCategory = styled(motion.div)`
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 3px;
     background: ${({ theme }) => theme.gradient_primary};
-    border-radius: 24px 24px 0 0;
+    border-radius: 16px 16px 0 0;
   }
 
   &:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
     box-shadow: ${({ theme }) => theme.glow};
     border-color: ${({ theme }) => theme.primary};
     background: ${({ theme }) => theme.card_hover};
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+  }
+`;
+
+const CategoryInfo = styled.div`
+  flex: 1;
+  min-width: 250px;
 `;
 
 const CategoryTitle = styled.h3`
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: ${({ theme }) => theme.text_primary};
-  margin-bottom: 30px;
-  text-align: center;
+  margin-bottom: 10px;
   position: relative;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
     height: 3px;
     background: ${({ theme }) => theme.gradient_accent};
     border-radius: 2px;
   }
 `;
 
+const CategoryDescription = styled.p`
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 0.95rem;
+  line-height: 1.5;
+`;
+
 const SkillsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
 `;
 
 const SkillItem = styled(motion.div)`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 24px 16px;
+  gap: 8px;
+  padding: 8px 16px;
   background: ${({ theme }) => theme.glass};
   backdrop-filter: blur(10px);
   border: 1px solid ${({ theme }) => theme.border};
-  border-radius: 16px;
+  border-radius: 20px;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
   position: relative;
@@ -158,9 +174,9 @@ const SkillItem = styled(motion.div)`
   }
 
   &:hover {
-    transform: translateY(-8px) scale(1.05);
+    transform: translateY(-3px) scale(1.05);
     border-color: ${({ theme }) => theme.primary};
-    box-shadow: 0 15px 35px rgba(0, 212, 255, 0.25);
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
     
     &::before {
       left: 0;
@@ -169,23 +185,22 @@ const SkillItem = styled(motion.div)`
 `;
 
 const SkillIcon = styled.img`
-  width: 48px;
-  height: 48px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   transition: all 0.3s ease;
 
   ${SkillItem}:hover & {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.1);
   }
 `;
 
 const SkillName = styled.span`
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
-  text-align: center;
-  line-height: 1.3;
+  white-space: nowrap;
 `;
 
 const LoadingContainer = styled.div`
@@ -226,6 +241,19 @@ const ErrorContainer = styled.div`
     margin-bottom: 10px;
   }
 `;
+
+const getCategoryDescription = (title) => {
+  const descriptions = {
+    "Frontend": "Building responsive and interactive user interfaces",
+    "Backend": "Server-side development and API creation",
+    "Database": "Data storage and management solutions",
+    "DevOps": "Deployment, monitoring, and infrastructure",
+    "Mobile": "Cross-platform mobile application development",
+    "Tools": "Development tools and version control",
+    "Languages": "Programming languages and frameworks"
+  };
+  return descriptions[title] || "Technologies and tools I work with";
+};
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
@@ -313,20 +341,26 @@ const Skills = () => {
             {skills.map((category, index) => (
               <SkillCategory
                 key={category.title}
+                alternate={index % 2 === 1}
                 variants={scaleIn}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.01 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <CategoryTitle>{category.title}</CategoryTitle>
+                <CategoryInfo>
+                  <CategoryTitle>{category.title}</CategoryTitle>
+                  <CategoryDescription>
+                    {getCategoryDescription(category.title)}
+                  </CategoryDescription>
+                </CategoryInfo>
                 <SkillsContainer>
                   {category.skills.map((skill, skillIndex) => (
                     <SkillItem
                       key={skill.name}
                       variants={fadeInUp}
-                      whileHover={{ scale: 1.1, rotateY: 10 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ 
-                        delay: (index * 0.1) + (skillIndex * 0.05),
+                        delay: (index * 0.1) + (skillIndex * 0.02),
                         type: "spring",
                         stiffness: 300
                       }}

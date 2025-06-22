@@ -12,10 +12,9 @@ import {
   MobileIcon,
   MobileMenu,
   MobileLink,
-  ThemeToggle,
 } from "./NavbarStyledComponent";
 import Icon from "../../images/Raj-logo.svg";
-import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { Bio } from "../../data/constants";
 import { Page_Title, Section_Title } from "../../utils/Themes";
 
@@ -159,17 +158,8 @@ const Navbar = ({ darkMode, toggleTheme }) => {
           </NavItems>
 
           <ButtonContainer>
-            <ThemeToggle onClick={toggleTheme}>
-              <motion.div
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                animate={{ rotate: darkMode ? 0 : 180 }}
-                transition={{ duration: 0.3 }}
-              >
-                {darkMode ? <FaSun /> : <FaMoon />}
-              </motion.div>
-            </ThemeToggle>
             
+
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -210,25 +200,8 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                     </MobileLink>
                   </motion.div>
                 ))}
+
                 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: '10px' }}
-                >
-                  <ThemeToggle onClick={toggleTheme} style={{ margin: 0 }}>
-                    <motion.div
-                      animate={{ rotate: darkMode ? 0 : 180 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {darkMode ? <FaSun /> : <FaMoon />}
-                    </motion.div>
-                  </ThemeToggle>
-                  <span style={{ color: 'inherit', fontSize: '14px' }}>
-                    {darkMode ? "Light Mode" : "Dark Mode"}
-                  </span>
-                </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { darkTheme } from './utils/Themes';
+import { theme } from './utils/Themes';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import About from './components/About';
@@ -72,27 +72,13 @@ const Wrapper = styled.div`
 
 function App() {
   const [openModal, setOpenModal] = useState({ state: false, project: null });
-  const [darkMode, setDarkMode] = useState(true);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('darkMode');
-    if (savedTheme !== null) {
-      setDarkMode(JSON.parse(savedTheme));
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    localStorage.setItem('darkMode', JSON.stringify(newMode));
-  };
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Router>
         <Body>
-          <Navbar darkMode={darkMode} setDarkMode={toggleTheme} />
+          <Navbar />
           <div id="about">
             <HeroSection />
           </div>
