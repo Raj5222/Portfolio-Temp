@@ -17,6 +17,7 @@ const Footer = lazy(() => import("./components/Footer"));
 const Experience = lazy(() => import("./components/Experience"));
 const Education = lazy(() => import("./components/Education"));
 const ProjectDetails = lazy(() => import("./components/ProjectDetails"));
+const PlaceIcons = lazy(() => import("./components/Icons/PlaceIcons"));
 
 const Body = styled.div`
   background: ${({ theme }) => theme.bg};
@@ -289,6 +290,7 @@ function App() {
                   <Projects openModal={openModal} setOpenModal={setOpenModal} />
                   <Wrapper>
                     <Education />
+                    <PlaceIcons />
                     <Contact />
                   </Wrapper>
                   <Footer />
