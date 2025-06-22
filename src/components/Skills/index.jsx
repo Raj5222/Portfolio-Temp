@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -12,7 +11,7 @@ const Container = styled.section`
   padding: 120px 0;
   background: ${({ theme }) => theme.bg};
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -181,7 +180,7 @@ const SkillItem = styled(motion.div)`
     transform: translateY(-3px) scale(1.05);
     border-color: ${({ theme }) => theme.primary};
     box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
-    
+
     &::before {
       left: 0;
     }
@@ -239,7 +238,7 @@ const ErrorContainer = styled.div`
   text-align: center;
   flex-direction: column;
   gap: 20px;
-  
+
   h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
@@ -333,7 +332,7 @@ const Skills = () => {
             <motion.div variants={fadeInUp}>
               <Title>Skills & Technologies</Title>
             </motion.div>
-            
+
             <motion.div variants={fadeInUp}>
               <Subtitle>
                 Here are the technologies and tools I use to build amazing digital experiences

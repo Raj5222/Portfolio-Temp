@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -6,24 +5,22 @@ import styled from "styled-components";
 import { Snackbar, Alert } from "@mui/material";
 import { Connect_URL, Pass, fadeInUp, staggerContainer } from "../../utils/Themes";
 
-const Container = styled.section`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   z-index: 1;
-  padding: 120px 0;
+  padding: 80px 20px;
   background: ${({ theme }) => theme.bg};
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 30% 20%, ${({ theme }) => theme.primary}15 0%, transparent 40%),
-      radial-gradient(circle at 70% 80%, ${({ theme }) => theme.secondary}15 0%, transparent 40%);
-    z-index: -1;
+
+  @media (max-width: 960px) {
+    padding: 60px 20px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 40px 16px;
   }
 `;
 
@@ -117,7 +114,7 @@ const FormGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   margin-bottom: 24px;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -128,7 +125,7 @@ const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  
+
   &.full-width {
     grid-column: 1 / -1;
   }
@@ -219,7 +216,7 @@ const SubmitButton = styled(motion.button)`
   &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 12px 35px rgba(0, 212, 255, 0.4);
-    
+
     &::before {
       left: 0;
     }
@@ -238,7 +235,7 @@ const Contact = () => {
   const [isButtonValue, setButtonValue] = useState("Send Message 🚀");
   const [alertSeverity, setAlertSeverity] = useState("success");
   const [alertMessage, setAlertMessage] = useState("");
-  
+
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true
@@ -280,7 +277,7 @@ const Contact = () => {
         setAlertMessage("Thank you! Your message has been sent successfully. I'll get back to you soon!");
         setFormData({ email: "", name: "", subject: "", message: "" });
         setOpen(true);
-        
+
         setTimeout(() => {
           setButtonDisabled(false);
           setButtonValue("Send Message 🚀");
@@ -294,7 +291,7 @@ const Contact = () => {
       setAlertSeverity("error");
       setAlertMessage("Oops! Failed to send message. Please try again later.");
       setOpen(true);
-      
+
       setTimeout(() => {
         setButtonDisabled(false);
         setButtonValue("Try Again 🚀");
@@ -314,7 +311,7 @@ const Contact = () => {
             <motion.div variants={fadeInUp}>
               <Title>Let's Connect</Title>
             </motion.div>
-            
+
             <motion.div variants={fadeInUp}>
               <Subtitle>
                 Have a project in mind or just want to say hello? I'd love to hear from you!

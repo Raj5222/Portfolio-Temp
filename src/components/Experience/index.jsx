@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -56,7 +55,7 @@ const TimelineContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 1000px;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -67,7 +66,7 @@ const TimelineContainer = styled.div`
     background: ${({ theme }) => theme.gradient_primary};
     transform: translateX(-50%);
     border-radius: 2px;
-    
+
     @media (max-width: 768px) {
       left: 30px;
     }
@@ -79,15 +78,15 @@ const TimelineItem = styled(motion.div)`
   align-items: center;
   margin-bottom: 60px;
   position: relative;
-  
+
   &:nth-child(even) {
     flex-direction: row-reverse;
-    
+
     @media (max-width: 768px) {
       flex-direction: row;
     }
   }
-  
+
   @media (max-width: 768px) {
     flex-direction: row !important;
     margin-left: 60px;
@@ -106,7 +105,7 @@ const TimelineDot = styled.div`
   border-radius: 50%;
   z-index: 2;
   box-shadow: 0 0 20px ${({ theme }) => theme.primary}50;
-  
+
   @media (max-width: 768px) {
     left: 30px;
   }
@@ -115,7 +114,7 @@ const TimelineDot = styled.div`
 const CardWrapper = styled.div`
   flex: 1;
   max-width: 45%;
-  
+
   @media (max-width: 768px) {
     max-width: 100%;
   }
@@ -153,7 +152,7 @@ const ErrorContainer = styled.div`
   text-align: center;
   flex-direction: column;
   gap: 20px;
-  
+
   h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
@@ -233,7 +232,7 @@ const Experience = () => {
             <motion.div variants={fadeInUp}>
               <Title>Professional Experience</Title>
             </motion.div>
-            
+
             <motion.div variants={fadeInUp}>
               <Subtitle>
                 My journey through various roles and projects that have shaped my expertise
