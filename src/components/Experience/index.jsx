@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import Timeline from '@mui/lab/Timeline';
@@ -92,7 +91,7 @@ const Index = () => {
         }
         const data = await response.json();
         setEducationData(data);
-        
+
       } catch (error) {
         setError(error.message);
       } finally {
@@ -120,14 +119,14 @@ const Index = () => {
                 <TimelineSection>
                     <Timeline>
                         {experiences.map((experience,index) => (
-                            <TimelineItem>
+                            <TimelineItem key={index}>
+                                <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                    <ExperienceCard experience={experience} index={index}/>
+                                </TimelineContent>
                                 <TimelineSeparator>
                                     <TimelineDot variant="outlined" color="secondary" />
-                                    {index !== experiences.length - 1 && <TimelineConnector style={{ background: '#854CE6' }} />}
+                                    {index !== experiences.length - 1 && <TimelineConnector style={{ background: '#306EE8' }} />}
                                 </TimelineSeparator>
-                                <TimelineContent sx={{ py: '12px', px: 2 }}>
-                                    <ExperienceCard experience={experience}/>
-                                </TimelineContent>
                             </TimelineItem>
                         ))}
                     </Timeline>

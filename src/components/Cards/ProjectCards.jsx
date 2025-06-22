@@ -4,28 +4,42 @@ import styled from 'styled-components'
 
 const Card = styled.div`
     width: 330px;
-    height: 490px;
-    background-color: ${({ theme }) => theme.card};
+    height: 520px;
+    background: ${({ theme }) => theme.card};
     cursor: pointer;
-    border-radius: 16px;
+    border-radius: ${({ $isEven }) => $isEven ? '25px 10px 25px 10px' : '10px 25px 10px 25px'};
     box-shadow: ${({ theme }) => theme.shadow};
     overflow: hidden;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    transition: all 0.3s ease-in-out;
+    gap: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid ${({ theme }) => theme.border};
+    backdrop-filter: blur(10px);
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        border-radius: 25px 25px 0 0;
+    }
     
     &:hover {
-        transform: translateY(-8px);
+        transform: translateY(-12px) scale(1.03);
         box-shadow: ${({ theme }) => theme.glow};
         border-color: ${({ theme }) => theme.primary};
+        background: ${({ theme }) => theme.card_hover};
     }
 
     @media (max-width: 768px) {
         max-width: 400px;
-        height: 450px;
+        height: 480px;
         padding: 20px;
     }
 `;
@@ -62,30 +76,38 @@ const TechStack = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
-    margin: 8px 0;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 12px;
+    background: ${({ theme }) => theme.card_light};
+    border-radius: 12px;
+    border: 1px solid ${({ theme }) => theme.border};
 `;
 
 const TechIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background-color: ${({ theme }) => theme.card_light};
-    border: 1px solid ${({ theme }) => theme.border};
-    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: ${({ theme }) => theme.card};
+    border: 2px solid ${({ theme }) => theme.border};
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     
     &:hover {
-        transform: scale(1.1);
+        transform: translateY(-3px) scale(1.15);
         border-color: ${({ theme }) => theme.primary};
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        background: ${({ theme }) => theme.primary}10;
     }
 
     img {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         object-fit: contain;
+        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
     }
 `;
 
@@ -182,19 +204,19 @@ const getTechIcon = (tech) => {
     return iconMap[techName] || 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-original.svg';
 };
 
-const ProjectCards = ({project, setOpenModal}) => {
+const ProjectCards = ({project, setOpenModal, index}) => {
     return (
-        <Card onClick={() => setOpenModal({state: true, project: project})}>
+        <Card $isEven={index % 2 === 0} onClick={() => setOpenModal({state: true, project: project})}>
             <Image src={project.images[0]}/>
             <Tags>
-                {project.tags?.map((tag, index) => (
-                    <Tag key={index}>{tag}</Tag>
+                {project.tags?.map((tag, tagIndex) => (
+                    <Tag key={tagIndex}>{tag}</Tag>
                 ))}
             </Tags>
             
             <TechStack>
-                {project.tags?.slice(0, 6).map((tech, index) => (
-                    <TechIcon key={index} title={tech}>
+                {project.tags?.slice(0, 6).map((tech, techIndex) => (
+                    <TechIcon key={techIndex} title={tech}>
                         <img src={getTechIcon(tech)} alt={tech} />
                     </TechIcon>
                 ))}
@@ -206,8 +228,8 @@ const ProjectCards = ({project, setOpenModal}) => {
                 <Description>{project.description}</Description>
             </Details>
             <Members>
-                {project.member?.map((member, index) => (
-                    <Avatar key={index} src={member.img}/>
+                {project.member?.map((member, memberIndex) => (
+                    <Avatar key={memberIndex} src={member.img}/>
                 ))}
             </Members>
         </Card>

@@ -34,25 +34,43 @@ text-overflow: ellipsis;
 `
 
 const Card = styled.div`
-    width: 50vw;
-    border-radius:25px 10px;
-    box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
-    padding: 12px 16px;
-    justify-content: space-between;
+    width: 100%;
+    max-width: 650px;
+    background: ${({ theme }) => theme.card};
+    border-radius: ${({ $isEven }) => $isEven ? '25px 10px 25px 10px' : '10px 25px 10px 25px'};
+    box-shadow: ${({ theme }) => theme.shadow};
+    border: 1px solid ${({ theme }) => theme.border};
+    padding: 24px;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    transition: all 0.3s ease-in-out;
-    &:hover{
-        box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
-        transform: translateY(-5px);
+    gap: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 25px 25px 0 0;
     }
+    
+    &:hover{
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: ${({ theme }) => theme.glow};
+        border-color: ${({ theme }) => theme.primary};
+        background: ${({ theme }) => theme.card_hover};
+    }
+    
     @media only screen and (max-width: 768px){
-        padding: 10px;
-        gap: 8px;
-        width: 70vw;
+        padding: 20px;
+        gap: 12px;
+        max-width: 90vw;
     }
 
     &:hover ${Document}{
@@ -62,9 +80,7 @@ const Card = styled.div`
     &:hover ${Span}{
         overflow: visible;
         -webkit-line-clamp: unset;
-
     }
-    border: 0.1px solid #854CE6;
 `
 
 const Top = styled.div`
@@ -128,9 +144,9 @@ const Grade = styled.div`
 
 
 
-const EducationCard = ({ education }) => {
+const EducationCard = ({ education, index }) => {
     return (
-        <Card>
+        <Card $isEven={index % 2 === 0}>
             <Top>
                 <Image src={education.img} />
                 <Body>
